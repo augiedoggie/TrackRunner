@@ -65,17 +65,22 @@ _RunCommand(BMessage* message)
 		commandString << " '" << pathString << "'";
 	}
 
-	BString titleString(nameString);
-	titleString << " : " << cwdPath.Path();
-
 	if (itemMessage.GetBool(kEntryUseTerminalKey)) {
 		//TODO make the read command optional but enabled by default
 		commandString << "\n echo \"<<< Finished with status: $? >>>\"; read -p '<<<  Press ENTER to close!  >>>'";
+
+		// give our Terminal a nice title
+		BString titleString(nameString);
+		titleString << " : " << cwdPath.Path();
+
 		const char* argv[] = { "-w", cwdPath.Path(), "-t", titleString.String(), "/bin/sh", "-c", commandString, NULL };
 		be_roster->Launch(kTerminalSignature, 7, argv);
 	} else {
 		BString cd;
-		cd.SetToFormat("cd \'%s\' && ", cwdPath.Path());
+		BString pathString(cwdPath.Path());
+		// escape any single quotes
+		pathString.ReplaceAll("'", "'\\''");
+		cd.SetToFormat("cd '%s' && ", pathString.String());
 		commandString.Prepend(cd);
 
 		BPrivate::BCommandPipe pipe;
