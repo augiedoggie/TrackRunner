@@ -20,5 +20,5 @@ In addition to passing command line arguments it is possible to use simple shell
 ~> cd TrackRunner
 ~/TrackRunner> cmake .
 ~/TrackRunner> make
+~/TrackRunner> make install
 ```
-After `make` finishes you can copy the `TrackRunner` file to the `/boot/home/config/non-packaged/add-ons/Tracker` directory.
