@@ -59,8 +59,7 @@ _RunCommand(BMessage* message)
 	entry_ref ref;
 	for (int32 index = 0; message->FindRef("refs", index, &ref) == B_OK; index++) {
 		BPath path(&ref);
-		// use a relative path to the file
-		BString pathString(path.Leaf());
+		BString pathString(path.Path());
 		// escape any single quotes
 		pathString.ReplaceAll("'", "'\\''");
 		commandString << " '" << pathString << "'";
