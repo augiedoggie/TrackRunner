@@ -105,8 +105,6 @@ populate_menu(BMessage* message, BMenu* menu, BHandler* handler)
 	if (menuItem != NULL)
 		menu->RemoveItem(menuItem);
 
-	//TODO check message for selected files and filter commands
-
 	BMessage prefsMessage;
 	Preferences::ReadPreferences(prefsMessage);
 
