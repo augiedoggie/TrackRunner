@@ -108,8 +108,8 @@ populate_menu(BMessage* message, BMenu* menu, BHandler* handler)
 	BMessage prefsMessage;
 	Preferences::ReadPreferences(prefsMessage);
 
-	BMenu* xMenu = new BMenu(prefsMessage.GetString(kMenuLabelKey, kAppTitle));
-	BLayoutBuilder::Menu<> builder = BLayoutBuilder::Menu<>(xMenu);
+	BMenu* trackMenu = new BMenu(prefsMessage.GetString(kMenuLabelKey, kAppTitle));
+	BLayoutBuilder::Menu<> builder = BLayoutBuilder::Menu<>(trackMenu);
 
 	bool useIcons = prefsMessage.GetBool(kIconMenusKey, kIconMenusDefault);
 
@@ -119,13 +119,14 @@ populate_menu(BMessage* message, BMenu* menu, BHandler* handler)
 			if (itemMessage.what != kCommandWhat)
 				continue;
 
+			BString commandString;
+			if (itemMessage.FindString(kEntryCommandKey, &commandString) != B_OK)
+				continue;
+
 			// add each command with a copy of its configuration
 			BMessage* menuMessage = new BMessage(*message);
 			menuMessage->AddInt32(kAddOnWhatKey, kCommandWhat);
 			menuMessage->AddMessage(kCommandDataKey, &itemMessage);
-			BString commandString;
-			if (itemMessage.FindString(kEntryCommandKey, &commandString) != B_OK)
-				continue;
 
 			if (useIcons) {
 				IconMenuItem* item = NULL;
@@ -177,11 +178,11 @@ populate_menu(BMessage* message, BMenu* menu, BHandler* handler)
 	commandsMenuMessage->AddInt32(kAddOnWhatKey, kManageCommandsWhat);
 
 	// clang-format off
-	BMenu* subMenu = NULL;
+	BMenu* prefsSubMenu = NULL;
 	builder
 		.AddSeparator()
 		.AddMenu("Preferences & Help")
-			.GetMenu(subMenu)
+			.GetMenu(prefsSubMenu)
 			.AddItem("Manage Commands" B_UTF8_ELLIPSIS, commandsMenuMessage)
 			.AddItem("Preferences" B_UTF8_ELLIPSIS, prefsMenuMessage)
 			.AddSeparator()
@@ -191,16 +192,15 @@ populate_menu(BMessage* message, BMenu* menu, BHandler* handler)
 		.End();
 	// clang-format on
 
-	subMenu->SetTargetForItems(handler);
-	xMenu->SetTargetForItems(handler);
+	prefsSubMenu->SetTargetForItems(handler);
+	trackMenu->SetTargetForItems(handler);
 
 	if (useIcons) {
-		IconMenuItem* xItem = new IconMenuItem(xMenu, new BMessage(kSuperMenuWhat), kAppSignature, B_MINI_ICON);
-		menu->AddItem(xItem);
+		menu->AddItem(new IconMenuItem(trackMenu, new BMessage(kSuperMenuWhat), kAppSignature, B_MINI_ICON));
 	} else {
-		menu->AddItem(xMenu);
+		menu->AddItem(trackMenu);
 		// set a message for our menu so we can find and delete it again the next time through
-		menu->FindItem(xMenu->Name())->SetMessage(new BMessage(kSuperMenuWhat));
+		menu->FindItem(trackMenu->Name())->SetMessage(new BMessage(kSuperMenuWhat));
 	}
 }
 
