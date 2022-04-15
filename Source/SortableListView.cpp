@@ -23,9 +23,9 @@ SortableListView::SortableListView(const char* name, uint32 updateCommand = 0)
 
 
 bool
-SortableListView::InitiateDrag(BPoint /*point*/, int32 /*index*/, bool wasSelected)
+SortableListView::InitiateDrag(BPoint /*point*/, int32 /*index*/, bool /*wasSelected*/)
 {
-	if (!wasSelected || CountItems() == 1)
+	if (CountItems() == 1)
 		return false;
 
 	BRect dragRect(ItemFrame(CurrentSelection()));
