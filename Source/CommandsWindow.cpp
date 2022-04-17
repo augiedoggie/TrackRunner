@@ -39,7 +39,6 @@ CommandsWindow::CommandsWindow(BString& title)
 	:
 	BWindow(BRect(100, 100, 700, 450), title, B_TITLED_WINDOW,
 			B_ASYNCHRONOUS_CONTROLS | B_AUTO_UPDATE_SIZE_LIMITS | B_CLOSE_ON_ESCAPE),
-	fMenuLabel(new BString()),
 	fBrowsePanel(NULL)
 {
 	fListView = new SortableListView("CommandList", kListUpdateAction);
@@ -73,7 +72,8 @@ CommandsWindow::CommandsWindow(BString& title)
 		.AddGroup(B_HORIZONTAL)
 			.Add(scrollView, 0.5)
 			.AddGroup(B_VERTICAL)
-				.AddGrid()
+				.AddStrut(10.0)
+				.AddGrid(B_USE_HALF_ITEM_SPACING, B_USE_HALF_ITEM_SPACING)
 					.AddTextControl(fNameControl, 0, 0, B_ALIGN_RIGHT)
 					.AddTextControl(fCommandControl, 0, 1, B_ALIGN_RIGHT)
 					.AddGroup(B_HORIZONTAL, 0, 1, 2)
@@ -95,19 +95,11 @@ CommandsWindow::CommandsWindow(BString& title)
 }
 
 
-CommandsWindow::~CommandsWindow()
-{
-	delete fMenuLabel;
-	delete fBrowsePanel;
-}
-
-
 bool
 CommandsWindow::QuitRequested()
 {
 	if (fBrowsePanel != NULL) {
-		fBrowsePanel->Window()->LockLooper();
-		fBrowsePanel->Window()->Quit();
+		delete fBrowsePanel;
 		fBrowsePanel = NULL;
 	}
 

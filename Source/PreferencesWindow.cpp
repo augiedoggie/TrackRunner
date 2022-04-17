@@ -45,7 +45,8 @@ PreferencesWindow::PreferencesWindow(BString& title)
 			.AddGlue()
 			.Add(new BButton("DefaultsButton", "Defaults", new BMessage(kDefaultsButtonWhat)))
 			.Add(new BButton("CloseButton", "Close", new BMessage(B_QUIT_REQUESTED)))
-		.End();
+		.End()
+	.End();
 	// clang-format on
 }
 
@@ -74,10 +75,6 @@ PreferencesWindow::MessageReceived(BMessage* message)
 			break;
 		case kMenuLabelWhat:
 			_UpdateMenuLabel();
-			break;
-		case B_QUIT_REQUESTED:
-			LockLooper();
-			Quit();
 			break;
 		default:
 			BWindow::MessageReceived(message);

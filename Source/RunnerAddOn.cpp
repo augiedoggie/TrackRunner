@@ -189,7 +189,7 @@ populate_menu(BMessage* message, BMenu* menu, BHandler* handler)
 			.AddItem("User Guide", guideMenuMessage)
 			.AddItem("Github Page", githubMenuMessage)
 		.End()
-		.End();
+	.End();
 	// clang-format on
 
 	prefsSubMenu->SetTargetForItems(handler);

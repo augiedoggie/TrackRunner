@@ -22,7 +22,6 @@ class CommandsWindow : public BWindow {
 
 public:
 						CommandsWindow(BString& title);
-	virtual				~CommandsWindow();
 	virtual void		MessageReceived(BMessage* message);
 	virtual bool		QuitRequested();
 
@@ -41,7 +40,6 @@ private:
 		BButton*		fBrowseButton;
 		BCheckBox*		fTerminalCheckBox;
 		BListView*		fListView;
-		BString*		fMenuLabel;
 		BFilePanel*		fBrowsePanel;
 		BTextControl*	fCommandControl;
 		BTextControl*	fNameControl;
