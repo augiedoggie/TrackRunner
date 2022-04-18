@@ -32,6 +32,27 @@ enum {
 };
 
 
+// workaround Haiku bug #13721 where a file is sent if the user double clicks it
+class DirRefFilter : public BRefFilter {
+public:
+	DirRefFilter() {};
+	virtual bool Filter(const entry_ref* ref, BNode* node, struct stat_beos* /*st*/, const char* /*filetype*/)
+	{
+		if (node->IsDirectory())
+			return true;
+
+		if (node->IsSymLink()) {
+			BEntry entry(ref, true);
+			if (entry.InitCheck() == B_OK && entry.IsDirectory())
+				return true;
+		}
+
+
+		return false;
+	}
+};
+
+
 CommandSelectWindow::CommandSelectWindow(BMessage* message)
 	:
 	BWindow(BRect(100, 100, 650, 450), "Run command" B_UTF8_ELLIPSIS, B_FLOATING_WINDOW_LOOK, B_NORMAL_WINDOW_FEEL, B_NOT_ZOOMABLE | B_NOT_MINIMIZABLE | B_AUTO_UPDATE_SIZE_LIMITS | B_CLOSE_ON_ESCAPE),
@@ -132,14 +153,7 @@ CommandSelectWindow::MessageReceived(BMessage *message) {
 			if (message->FindRef("refs", &ref) != B_OK)
 				break;
 
-			// workaround Haiku bug #13721 where a file is sent if the user double clicks it
-			//TODO add a reffilter to avoid the bug
-			BEntry entry(&ref);
-			if (entry.IsFile())
-				entry.GetParent(&entry);
-
-			BPath cwdPath;
-			entry.GetPath(&cwdPath);
+			BPath cwdPath(&ref);
 			fDirectoryTextControl->SetText(cwdPath.Path());
 		}
 			break;
@@ -155,6 +169,7 @@ CommandSelectWindow::MessageReceived(BMessage *message) {
 		}
 			break;
 		case kCommandTextAction:
+			//TODO deselect listitem?
 			// disable run button if command is empty
 			fRunButton->SetEnabled(strlen(fCommandTextControl->Text()));
 			break;
@@ -253,7 +268,7 @@ CommandSelectWindow::_BrowseWorkingDirectory()
 {
 	if (fDirectoryFilePanel == NULL) {
 		BMessage message(kDirectoryRefReceived);
-		fDirectoryFilePanel = new BFilePanel(B_OPEN_PANEL, new BMessenger(this), NULL, B_DIRECTORY_NODE, false, &message, NULL, true);
+		fDirectoryFilePanel = new BFilePanel(B_OPEN_PANEL, new BMessenger(this), NULL, B_DIRECTORY_NODE, false, &message, new DirRefFilter(), true);
 	}
 
 	fDirectoryFilePanel->Show();
