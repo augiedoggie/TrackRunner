@@ -25,6 +25,7 @@ enum {
 	kBrowseCommandAction = 'BrCm',
 	kBrowseDirectoryAction = 'BrDr',
 	kCommandRefReceived = 'CmRr',
+	kCommandTextAction = 'CmTx',
 	kDirectoryRefReceived = 'DrRr',
 	kListSelectAction = 'LsTs',
 	kRunCommandAction = 'RuNc'
@@ -54,6 +55,7 @@ CommandSelectWindow::CommandSelectWindow(BMessage* message)
 
 	fDirectoryTextControl = new BTextControl("CWDTextControl", "Directory:", cwdPath.Path(), NULL);
 	fCommandTextControl = new BTextControl("CommandTextControl", "Command:", "", NULL);
+	fCommandTextControl->SetModificationMessage(new BMessage(kCommandTextAction));
 	// prevent the text control from growing vertically due to the button
 	fCommandTextControl->TextView()->SetExplicitMaxSize(BSize(B_SIZE_UNSET, fCommandTextControl->TextView()->MinSize().Height()));
 
@@ -62,8 +64,8 @@ CommandSelectWindow::CommandSelectWindow(BMessage* message)
 	size.SetWidth(B_SIZE_UNLIMITED);
 	fUseTerminalCheckBox->SetExplicitMaxSize(size);
 
-	BButton* runButton = new BButton("Run", new BMessage(kRunCommandAction));
-	runButton->MakeDefault(true);
+	fRunButton = new BButton("Run", new BMessage(kRunCommandAction));
+	fRunButton->MakeDefault(true);
 
 	// clang-format off
 	BLayoutBuilder::Group<>(this, B_VERTICAL, 0)
@@ -80,7 +82,7 @@ CommandSelectWindow::CommandSelectWindow(BMessage* message)
 		.AddGroup(B_HORIZONTAL, B_USE_HALF_ITEM_SPACING, 1.0)
 			.AddGlue()
 			.Add(new BButton("Cancel", new BMessage(B_QUIT_REQUESTED)))
-			.Add(runButton)
+			.Add(fRunButton)
 		.End()
 	.End();
 	// clang-format on
@@ -151,6 +153,10 @@ CommandSelectWindow::MessageReceived(BMessage *message) {
 			BPath cmdPath(&ref);
 			fCommandTextControl->SetText(cmdPath.Path());
 		}
+			break;
+		case kCommandTextAction:
+			// disable run button if command is empty
+			fRunButton->SetEnabled(strlen(fCommandTextControl->Text()));
 			break;
 		case kBrowseCommandAction:
 			_BrowseCommand();
@@ -266,5 +272,6 @@ CommandSelectWindow::_UpdateControls()
 		fUseTerminalCheckBox->SetValue(1);
 	}
 
-	//TODO disable run button if command is empty
+	// disable run button if command is empty
+	fRunButton->SetEnabled(strlen(fCommandTextControl->Text()));
 }

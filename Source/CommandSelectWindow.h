@@ -7,6 +7,7 @@
 #include <Window.h>
 
 
+class BButton;
 class BCheckBox;
 class BFilePanel;
 class BListView;
@@ -28,6 +29,7 @@ private:
 		void		_UpdateControls();
 		status_t	_LoadCommands();
 
+		BButton*		fRunButton;
 		BCheckBox*		fUseTerminalCheckBox;
 		BFilePanel*		fCommandFilePanel;
 		BFilePanel*		fDirectoryFilePanel;
