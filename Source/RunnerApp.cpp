@@ -2,6 +2,7 @@
 // SPDX-FileCopyrightText: 2022 Chris Roberts
 
 #include "RunnerApp.h"
+#include "CommandSelectWindow.h"
 #include "CommandsWindow.h"
 #include "Constants.h"
 #include "PreferencesWindow.h"
@@ -68,6 +69,18 @@ RunnerApp::ReadyToRun()
 	// we didn't receive a launch message so open a command window
 	//TODO show about window?
 	_ShowManageWindow();
+}
+
+
+void
+RunnerApp::RefsReceived(BMessage *message)
+{
+	CommandSelectWindow* window = new CommandSelectWindow(message);
+	window->Lock();
+	window->CenterOnScreen();
+	window->Show();
+	window->Unlock();
+	fInitialWindowShown = true;
 }
 
 

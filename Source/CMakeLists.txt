@@ -3,6 +3,7 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR})
 
 set(${PROJECT_NAME}_sources
 	CommandListItem.cpp
+	CommandSelectWindow.cpp
 	CommandsWindow.cpp
 	RunnerAddOn.cpp
 	RunnerApp.cpp

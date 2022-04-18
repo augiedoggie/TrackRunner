@@ -14,6 +14,7 @@ public:
 	virtual void	AboutRequested();
 	virtual void	MessageReceived(BMessage* message);
 	virtual void	ReadyToRun();
+	virtual void	RefsReceived(BMessage* message);
 
 private:
 		void		_ShowManageWindow();
