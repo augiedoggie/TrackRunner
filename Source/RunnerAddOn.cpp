@@ -252,7 +252,16 @@ message_received(BMessage* message)
 
 
 void
-process_refs(entry_ref /*directory*/, BMessage* /*refs*/, void* /*reserved*/)
+process_refs(entry_ref directory, BMessage* refs, void* /*reserved*/)
 {
-	//TODO process refs
+	BMessage launchMessage(B_REFS_RECEIVED);
+
+	if (refs != NULL)
+		launchMessage = *refs;
+
+	launchMessage.AddRef("TrackRunner:cwd", &directory);
+
+	status_t rc = be_roster->Launch(kAppSignature, &launchMessage);
+	if (rc != B_OK && rc != B_ALREADY_RUNNING)
+		(new BAlert("ErrorAlert", "Unable to launch TrackRunner application", "OK", NULL, NULL, B_WIDTH_FROM_LABEL, B_STOP_ALERT))->Go();
 }

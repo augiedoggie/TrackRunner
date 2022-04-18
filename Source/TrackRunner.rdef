@@ -14,7 +14,7 @@ resource app_version {
 	long_info = "TrackRunner allows running commands and scripts from the Tracker context menu"
 };
 
-resource("BEOS:default_shortcut") "R";
+resource("BEOS:default_shortcut") "X";
 
 resource vector_icon {
 	$"6E6369660602001603BECE43BED9D83ED9D8BECE4349F46A4C6A0663EDBBB5DB"
