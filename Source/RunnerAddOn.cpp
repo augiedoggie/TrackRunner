@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: MIT
 // SPDX-FileCopyrightText: 2022 Chris Roberts
 
+#include "RunnerAddOn.h"
 #include "Constants.h"
 #include "Preferences.h"
 
@@ -29,7 +30,7 @@ const char* kCommandDataKey = "command:data";
 
 
 status_t
-_RunCommand(BMessage* message)
+RunnerAddOn::RunCommand(BMessage* message)
 {
 	BMessage itemMessage;
 	if (message->FindMessage(kCommandDataKey, &itemMessage) != B_OK)
@@ -215,7 +216,7 @@ message_received(BMessage* message)
 	switch (what) {
 		case kCommandWhat:
 			//TODO improve alert message
-			if (_RunCommand(message) != B_OK)
+			if (RunnerAddOn::RunCommand(message) != B_OK)
 				(new BAlert("ErrorAlert", "Error running command", "OK", NULL, NULL, B_WIDTH_FROM_LABEL, B_STOP_ALERT))->Go();
 			break;
 		case kManageCommandsWhat:
