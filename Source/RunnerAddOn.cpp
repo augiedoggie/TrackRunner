@@ -26,8 +26,6 @@ enum {
 	kSuperMenuWhat = 'SUPR'
 };
 
-const char* kCommandDataKey = "command:data";
-
 
 status_t
 RunnerAddOn::RunCommand(BMessage* message)

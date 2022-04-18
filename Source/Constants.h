@@ -29,6 +29,7 @@ static const char* kEntryNameKey			= "Name";
 static const char* kEntryCommandKey			= "Command";
 static const char* kEntryUseTerminalKey		= "UseTerminal";
 static const char* kIconMenusKey			= "UseIcons";
+static const char* kCommandDataKey			= "command:data";
 static bool kIconMenusDefault = true;
 
 #ifdef __GNUC__
