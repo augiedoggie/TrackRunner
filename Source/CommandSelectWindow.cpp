@@ -47,7 +47,6 @@ public:
 				return true;
 		}
 
-
 		return false;
 	}
 };
@@ -81,6 +80,7 @@ CommandSelectWindow::CommandSelectWindow(BMessage* message)
 	fCommandTextControl->TextView()->SetExplicitMaxSize(BSize(B_SIZE_UNSET, fCommandTextControl->TextView()->MinSize().Height()));
 
 	fUseTerminalCheckBox = new BCheckBox("Use Terminal");
+	// allow the checkbox to grow horizontally as the window resizes
 	BSize size(fUseTerminalCheckBox->ExplicitMaxSize());
 	size.SetWidth(B_SIZE_UNLIMITED);
 	fUseTerminalCheckBox->SetExplicitMaxSize(size);
