@@ -1,0 +1,68 @@
+
+/* no contents link since we're only one page */
+.uplink {
+    display: none;
+}
+
+/* disable uppercase on the main heading */
+div.header h2 {
+    margin-top: 10px;
+    text-transform: none;
+}
+
+div.header img.rightlogo {
+    margin-top: 10px;
+    float: left;
+}
+
+#user-guide-contents {
+    background-color: #f8f8f8;
+    width: fit-content;
+    margin: 0 auto;
+    margin-top: 30px;
+}
+
+a:visited {
+    color: #dc3c01;
+}
+
+.section {
+    padding-top: 20px;
+}
+
+ul.simple li p a {
+    font-weight: normal;
+}
+
+.terminal .highlight {
+    border-color: #ffb11f;
+    border-radius: 5px;
+    border-style: dotted;
+    border-width: thin;
+    margin: 0em;
+    padding: 0.5em;
+    background-color: #3a3a3a;
+    color: #ffb11f;
+}
+
+p.topic-title {
+    text-align: center;
+    margin: 0;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    background-color: #dfdfdf;
+    color: #0c3762;
+    font-size: 1.5em;
+}
+
+td p {
+    text-align: center;
+}
+
+table.docutils td {
+    border-bottom: 0px;
+}
+
+table.docutils td + td {
+    border-left: solid 1px #f0f0f0;
+}

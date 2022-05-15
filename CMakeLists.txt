@@ -6,6 +6,18 @@ set(CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/CMakeModules")
 
 include(UseHaiku)
 
+option(BUILD_USERGUIDE "Use sphinx to generate the user guide" ON)
+if(BUILD_USERGUIDE)
+	find_package(Sphinx)
+	if (Sphinx_FOUND)
+		add_subdirectory(Assets)
+	else()
+		message(WARNING "Sphinx was not found.  You will not be able to build the user guide.")
+	endif()
+else()
+	message("Generating user guide is disabled.")
+endif()
+
 option(USE_CLANG "Enable building with clang instead of gcc" OFF)
 if(USE_CLANG)
 	set(CMAKE_CXX_COMPILER clang++)
