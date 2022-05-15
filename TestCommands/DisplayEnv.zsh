@@ -7,7 +7,7 @@ if (($# == 0)); then
 	echo "No command line arguments given"
 else
 	for ((i = 1; i <= $#; i++)); do
-		printf '%s\n' "Arg $i: $argv[i]"
+		echo "Arg $i: $argv[i]"
 	done
 fi
 
