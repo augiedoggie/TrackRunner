@@ -35,6 +35,11 @@ PreferencesWindow::PreferencesWindow(BString& title)
 	fIconMenuCheckBox->SetExplicitMaxSize(size);
 	fIconMenuCheckBox->SetValue(message.GetBool(kIconMenusKey, kIconMenusDefault));
 
+#ifndef USE_MENUITEM_ICONS
+	fIconMenuCheckBox->SetValue(0);
+	fIconMenuCheckBox->SetEnabled(false);
+#endif
+
 	// clang-format off
 	BLayoutBuilder::Group<>(this, B_VERTICAL, 0)
 		.SetInsets(B_USE_HALF_ITEM_INSETS)

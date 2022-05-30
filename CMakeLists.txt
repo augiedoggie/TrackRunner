@@ -41,4 +41,9 @@ if(CMAKE_BUILD_TYPE STREQUAL "Debug")
 	add_definitions(-DDEBUG)
 endif(CMAKE_BUILD_TYPE STREQUAL "Debug")
 
+option(USE_MENUITEM_ICONS "(Experimental) Enable use of icons for the context menu items" ON)
+if(USE_MENUITEM_ICONS)
+	add_definitions(-DUSE_MENUITEM_ICONS)
+endif()
+
 add_subdirectory(Source)

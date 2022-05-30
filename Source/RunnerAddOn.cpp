@@ -15,8 +15,10 @@
 #include <Roster.h>
 #include <TrackerAddOn.h>
 #include <private/shared/CommandPipe.h>
-#include <private/tracker/IconMenuItem.h>
 
+#ifdef USE_MENUITEM_ICONS
+#include <private/tracker/IconMenuItem.h>
+#endif
 
 enum {
 	kCommandWhat = 'CMND',
@@ -110,7 +112,9 @@ populate_menu(BMessage* message, BMenu* menu, BHandler* handler)
 	BMenu* trackMenu = new BMenu(prefsMessage.GetString(kMenuLabelKey, kAppTitle));
 	BLayoutBuilder::Menu<> builder = BLayoutBuilder::Menu<>(trackMenu);
 
+#ifdef USE_MENUITEM_ICONS
 	bool useIcons = prefsMessage.GetBool(kIconMenusKey, kIconMenusDefault);
+#endif
 
 	if (prefsMessage.HasMessage(kEntryKey)) {
 		BMessage itemMessage;
@@ -127,6 +131,7 @@ populate_menu(BMessage* message, BMenu* menu, BHandler* handler)
 			menuMessage->AddInt32(kAddOnWhatKey, kCommandWhat);
 			menuMessage->AddMessage(kCommandDataKey, &itemMessage);
 
+#ifdef USE_MENUITEM_ICONS
 			if (useIcons) {
 				IconMenuItem* item = NULL;
 				BString commandFile(commandString);
@@ -156,9 +161,12 @@ populate_menu(BMessage* message, BMenu* menu, BHandler* handler)
 
 				builder.AddItem(item);
 			} else {
+#endif
 				// add a standard(no icon) menuitem
 				builder.AddItem(itemMessage.FindString(kEntryNameKey), menuMessage);
+#ifdef USE_MENUITEM_ICONS
 			}
+#endif
 		}
 	} else {
 		builder.AddItem("<no commands>", 'MPTY').SetEnabled(false);
@@ -194,13 +202,17 @@ populate_menu(BMessage* message, BMenu* menu, BHandler* handler)
 	prefsSubMenu->SetTargetForItems(handler);
 	trackMenu->SetTargetForItems(handler);
 
+#ifdef USE_MENUITEM_ICONS
 	if (useIcons) {
 		menu->AddItem(new IconMenuItem(trackMenu, new BMessage(kSuperMenuWhat), kAppSignature, B_MINI_ICON));
 	} else {
+#endif
 		menu->AddItem(trackMenu);
 		// set a message for our menu so we can find and delete it again the next time through
 		menu->FindItem(trackMenu->Name())->SetMessage(new BMessage(kSuperMenuWhat));
+#ifdef USE_MENUITEM_ICONS
 	}
+#endif
 }
 
 
