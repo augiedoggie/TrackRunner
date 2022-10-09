@@ -66,3 +66,22 @@ table.docutils td {
 table.docutils td + td {
     border-left: solid 1px #f0f0f0;
 }
+
+.note {
+    /*background: #e4ffde url("../_images/lightbulb.png") 15px 15px no-repeat;*/
+    border-radius: 10px;
+    border-style: dotted;
+    border-width: thin;
+    border-color: #dcdcdc;
+    padding: 10px 15px 10px 80px;
+    margin-bottom: 15px;
+    margin-top: 15px;
+    margin-left: 40px;
+    margin-right: 40px;
+    min-height: 42px;
+}
+
+.note p {
+    display: inline;
+    vertical-align: middle;
+}
