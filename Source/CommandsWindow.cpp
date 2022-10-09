@@ -5,6 +5,7 @@
 #include "CommandListItem.h"
 #include "Constants.h"
 #include "Preferences.h"
+#include "RunnerAddOn.h"
 #include "SortableListView.h"
 
 #include <Alert.h>
@@ -136,8 +137,7 @@ CommandsWindow::MessageReceived(BMessage* message)
 			_InitNewCommand();
 			break;
 		case kUserGuideAction:
-			//TODO open user guide
-			(new BAlert("ErrorAlert", "User guide not written yet!", "OK", NULL, NULL, B_WIDTH_FROM_LABEL, B_STOP_ALERT))->Go();
+			RunnerAddOn::OpenUserGuide(true);
 			break;
 		default:
 			BWindow::MessageReceived(message);

@@ -6,4 +6,5 @@
 class RunnerAddOn {
 public:
 	static status_t RunCommand(BMessage* message);
+	static status_t OpenUserGuide(bool useAppImage = false);
 };

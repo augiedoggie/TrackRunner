@@ -95,6 +95,44 @@ RunnerAddOn::RunCommand(BMessage* message)
 }
 
 
+status_t
+RunnerAddOn::OpenUserGuide(bool useAppImage)
+{
+	BPath indexLocation;
+
+#if defined(PACKAGE_DOCUMENTATION_DIR)
+	indexLocation.SetTo(PACKAGE_DOCUMENTATION_DIR);
+#else
+	image_info image;
+	int32 cookie = 0;
+	while (get_next_image_info(B_CURRENT_TEAM, &cookie, &image) == B_OK) {
+		// locate our application image by type or by location in memory if we were loaded as an addon
+		if ((useAppImage && image.type == B_APP_IMAGE) ||
+			(!useAppImage && (char*)RunnerAddOn::OpenUserGuide >= (char*)image.text &&
+			 					(char*)RunnerAddOn::OpenUserGuide <= (char*)image.text + image.text_size)) {
+			BPath exePath(image.name);
+			exePath.GetParent(&indexLocation);
+			break;
+		}
+	}
+#endif
+
+	//TODO search other document locations using the BPathFinder API if needed
+
+	indexLocation.Append("UserGuide/index.html");
+
+	const char* args[] = { indexLocation.Path(), NULL };
+
+	status_t rc = be_roster->Launch("application/x-vnd.Be.URL.https", 1, args);
+	if (rc != B_OK && rc != B_ALREADY_RUNNING) {
+		(new BAlert("Error", "Failed to launch URL", "Ok", NULL, NULL, B_WIDTH_AS_USUAL, B_STOP_ALERT))->Go();
+		return rc;
+	}
+
+	return B_OK;
+}
+
+
 void
 populate_menu(BMessage* message, BMenu* menu, BHandler* handler)
 {
@@ -246,8 +284,7 @@ message_received(BMessage* message)
 		}
 			break;
 		case kUserGuideWhat:
-			(new BAlert("ErrorAlert", "User guide not written yet!", "OK", NULL, NULL, B_WIDTH_FROM_LABEL, B_STOP_ALERT))->Go();
-			//TODO handle user guide message
+			RunnerAddOn::OpenUserGuide();
 			break;
 		case kGithubWhat:
 		{
