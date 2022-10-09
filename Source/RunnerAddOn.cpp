@@ -121,6 +121,13 @@ RunnerAddOn::OpenUserGuide(bool useAppImage)
 
 	indexLocation.Append("UserGuide/index.html");
 
+	// verify the index actually exists on disk
+	BEntry entry(indexLocation.Path());
+	if (entry.InitCheck() != B_OK || !entry.Exists()) {
+		(new BAlert("Error", "Unable to locate UserGuide html files", "Ok", NULL, NULL, B_WIDTH_AS_USUAL, B_STOP_ALERT))->Go();
+		return B_ERROR;
+	}
+
 	const char* args[] = { indexLocation.Path(), NULL };
 
 	status_t rc = be_roster->Launch("application/x-vnd.Be.URL.https", 1, args);
