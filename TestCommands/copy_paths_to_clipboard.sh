@@ -5,7 +5,7 @@ if (($# == 0)); then
 	exit
 fi
 
-for ((i = 1; i <= $#; i++); do
+for ((i = 1; i <= $#; i++)); do
 	clipString+=" ${!i}"$'\n'
 done
 
