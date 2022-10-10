@@ -47,8 +47,9 @@ Tracker Context Menu
 The context menu allows you to directly execute one of your saved commands as well as open the preferences or
 management window.
 
-.. note::
-   Menuitem icons are only available when TrackRunner is built from source.  They are not available in packaged releases.
+..
+  .. note::
+     Menuitem icons are only available when TrackRunner is built from source.  They are not available in packaged releases.
 
 Command Management Window
 -------------------------
@@ -133,12 +134,13 @@ Menu label
 Allows you to change the menu label for the `Tracker Context Menu`_.
 
 
-Use icons in menus
-^^^^^^^^^^^^^^^^^^
+..
+  Use icons in menus
+  ^^^^^^^^^^^^^^^^^^
 
-Use the TrackerRunner logo in the top level menu and attempt to load icons for any custom commands.
+  Use the TrackerRunner logo in the top level menu and attempt to load icons for any custom commands.
 
-*This feature is experimental and only enabled when TrackRunner is built from source*
+  *This feature is experimental and only enabled when TrackRunner is built from source*
 
 
 

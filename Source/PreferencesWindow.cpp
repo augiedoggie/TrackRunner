@@ -13,7 +13,9 @@
 
 enum {
 	kDefaultsButtonWhat = 'DfLt',
+#ifdef USE_MENUITEM_ICONS
 	kIconCheckBoxWhat = 'IkOn',
+#endif
 	kMenuLabelWhat = 'LaBl'
 };
 
@@ -29,22 +31,21 @@ PreferencesWindow::PreferencesWindow(BString& title)
 	fMenuLabelControl = new BTextControl("Menu label:", message.GetString(kMenuLabelKey, kAppTitle), NULL);
 	fMenuLabelControl->SetModificationMessage(new BMessage(kMenuLabelWhat));
 
+#ifdef USE_MENUITEM_ICONS
 	fIconMenuCheckBox = new BCheckBox("Use icons in menus", new BMessage(kIconCheckBoxWhat));
 	BSize size(fIconMenuCheckBox->ExplicitMaxSize());
 	size.SetWidth(B_SIZE_UNLIMITED);
 	fIconMenuCheckBox->SetExplicitMaxSize(size);
 	fIconMenuCheckBox->SetValue(message.GetBool(kIconMenusKey, kIconMenusDefault));
-
-#ifndef USE_MENUITEM_ICONS
-	fIconMenuCheckBox->SetValue(0);
-	fIconMenuCheckBox->SetEnabled(false);
 #endif
 
 	// clang-format off
 	BLayoutBuilder::Group<>(this, B_VERTICAL, 0)
 		.SetInsets(B_USE_HALF_ITEM_INSETS)
 		.Add(fMenuLabelControl)
+#ifdef USE_MENUITEM_ICONS
 		.Add(fIconMenuCheckBox)
+#endif
 		.AddGlue()
 		.AddGroup(B_HORIZONTAL)
 			.AddGlue()
@@ -72,14 +73,18 @@ PreferencesWindow::MessageReceived(BMessage* message)
 	switch (message->what) {
 		case kDefaultsButtonWhat:
 			fMenuLabelControl->SetText(kAppTitle);
+#ifdef USE_MENUITEM_ICONS
 			fIconMenuCheckBox->SetValue(kIconMenusDefault);
+#endif
 			_WritePreferences();
 			break;
+#ifdef USE_MENUITEM_ICONS
 		case kIconCheckBoxWhat:
 			_WritePreferences();
 			break;
+#endif
 		case kMenuLabelWhat:
-			_UpdateMenuLabel();
+			_WritePreferences();
 			break;
 		default:
 			BWindow::MessageReceived(message);
@@ -94,24 +99,16 @@ PreferencesWindow::_WritePreferences()
 
 	Preferences::ReadPreferences(message);
 
+#ifdef USE_MENUITEM_ICONS
 	message.SetBool(kIconMenusKey, fIconMenuCheckBox->Value());
-	message.SetString(kMenuLabelKey, fMenuLabelControl->Text());
+#endif
 
-	return Preferences::WritePreferences(message);
-}
-
-
-void
-PreferencesWindow::_UpdateMenuLabel()
-{
-	BMessage message;
-	Preferences::ReadPreferences(message);
 
 	BString menuLabel(message.GetString(kMenuLabelKey, kAppTitle));
 	BString newLabel(fMenuLabelControl->Text());
-	if (newLabel != menuLabel && newLabel.Length() > 3) {
+	if (newLabel != menuLabel && newLabel.Length() > 3)
 		message.SetString(kMenuLabelKey, newLabel);
-		Preferences::WritePreferences(message);
-	}
-	//TODO else show textcontrol in red color?
+		//TODO else show textcontrol in red color?
+
+	return Preferences::WritePreferences(message);
 }

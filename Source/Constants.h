@@ -28,7 +28,9 @@ static const char* kEntryKey				= "CommandEntry";
 static const char* kEntryNameKey			= "Name";
 static const char* kEntryCommandKey			= "Command";
 static const char* kEntryUseTerminalKey		= "UseTerminal";
+#ifdef USE_MENUITEM_ICONS
 static const char* kIconMenusKey			= "UseIcons";
+#endif
 static const char* kCommandDataKey			= "command:data";
 static bool kIconMenusDefault = true;
 

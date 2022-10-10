@@ -19,10 +19,11 @@ public:
 	virtual bool	QuitRequested();
 
 private:
-		void		_UpdateMenuLabel();
 		status_t	_WritePreferences();
 
+#ifdef USE_MENUITEM_ICONS
 	BCheckBox*		fIconMenuCheckBox;
+#endif
 	BTextControl*	fMenuLabelControl;
 };
 
