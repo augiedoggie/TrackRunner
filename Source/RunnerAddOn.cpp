@@ -12,6 +12,7 @@
 #include <Mime.h>
 #include <NodeInfo.h>
 #include <Path.h>
+#include <PathFinder.h>
 #include <Roster.h>
 #include <TrackerAddOn.h>
 #include <private/shared/CommandPipe.h>
@@ -117,15 +118,18 @@ RunnerAddOn::OpenUserGuide(bool useAppImage)
 	}
 #endif
 
-	//TODO search other document locations using the BPathFinder API if needed
-
 	indexLocation.Append("UserGuide/index.html");
 
 	// verify the index actually exists on disk
 	BEntry entry(indexLocation.Path());
 	if (entry.InitCheck() != B_OK || !entry.Exists()) {
-		(new BAlert("Error", "Unable to locate UserGuide html files", "Ok", NULL, NULL, B_WIDTH_AS_USUAL, B_STOP_ALERT))->Go();
-		return B_ERROR;
+		// search other document locations using the BPathFinder API if needed
+		BStringList list;
+		if (BPathFinder::FindPaths(B_FIND_PATH_DOCUMENTATION_DIRECTORY, "TrackRunner/UserGuide/index.html", B_FIND_PATH_EXISTING_ONLY, list) != B_OK) {
+			(new BAlert("Error", "Unable to locate UserGuide html files", "Ok", NULL, NULL, B_WIDTH_AS_USUAL, B_STOP_ALERT))->Go();
+			return B_ERROR;
+		}
+		indexLocation.SetTo(list.First());
 	}
 
 	const char* args[] = { indexLocation.Path(), NULL };
