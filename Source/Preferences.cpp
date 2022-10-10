@@ -22,7 +22,10 @@ Preferences::ReadPreferences(BMessage& message)
 	if (prefsFile.SetTo(prefsPath.Path(), B_READ_WRITE | B_CREATE_FILE) != B_OK)
 		return B_ERROR;
 
-	return message.Unflatten(&prefsFile);
+	// ignore Unflatten() errors because the file might be newly created
+	message.Unflatten(&prefsFile);
+
+	return B_OK;
 }
 
 
