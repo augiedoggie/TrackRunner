@@ -109,7 +109,9 @@ PreferencesWindow::_UpdateMenuLabel()
 
 	BString menuLabel(message.GetString(kMenuLabelKey, kAppTitle));
 	BString newLabel(fMenuLabelControl->Text());
-	if (newLabel != menuLabel && newLabel.Length() > 4)
+	if (newLabel != menuLabel && newLabel.Length() > 3) {
+		message.SetString(kMenuLabelKey, newLabel);
 		Preferences::WritePreferences(message);
+	}
 	//TODO else show textcontrol in red color?
 }
