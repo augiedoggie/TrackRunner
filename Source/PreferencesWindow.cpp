@@ -103,12 +103,18 @@ PreferencesWindow::_WritePreferences()
 	message.SetBool(kIconMenusKey, fIconMenuCheckBox->Value());
 #endif
 
-
 	BString menuLabel(message.GetString(kMenuLabelKey, kAppTitle));
 	BString newLabel(fMenuLabelControl->Text());
-	if (newLabel != menuLabel && newLabel.Length() > 3)
+	// show the text in red if it's too short
+	rgb_color textColor = { 255, 0, 0, 0 };
+	if (newLabel.Length() > 3) {
+		// only save the new one if it's long enough
 		message.SetString(kMenuLabelKey, newLabel);
-		//TODO else show textcontrol in red color?
+		textColor = ui_color(B_DOCUMENT_TEXT_COLOR);
+	}
+	BFont font;
+	fMenuLabelControl->TextView()->GetFontAndColor(0, &font);
+	fMenuLabelControl->TextView()->SetFontAndColor(&font, B_FONT_ALL, &textColor);
 
 	return Preferences::WritePreferences(message);
 }

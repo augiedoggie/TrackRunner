@@ -133,6 +133,8 @@ Menu label
 
 Allows you to change the menu label for the `Tracker Context Menu`_.
 
+*The label must be at least 4 characters long*
+
 
 ..
   Use icons in menus
