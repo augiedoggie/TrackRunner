@@ -105,16 +105,19 @@ PreferencesWindow::_WritePreferences()
 
 	BString menuLabel(message.GetString(kMenuLabelKey, kAppTitle));
 	BString newLabel(fMenuLabelControl->Text());
-	// show the text in red if it's too short
+	// show the text and input background in red if it's too short
 	rgb_color textColor = { 255, 0, 0, 0 };
+	rgb_color viewColor = textColor;
 	if (newLabel.Length() > 3) {
 		// only save the new one if it's long enough
 		message.SetString(kMenuLabelKey, newLabel);
 		textColor = ui_color(B_DOCUMENT_TEXT_COLOR);
+		viewColor = ui_color(B_PANEL_BACKGROUND_COLOR);
 	}
 	BFont font;
 	fMenuLabelControl->TextView()->GetFontAndColor(0, &font);
 	fMenuLabelControl->TextView()->SetFontAndColor(&font, B_FONT_ALL, &textColor);
+	fMenuLabelControl->SetViewColor(viewColor);
 
 	return Preferences::WritePreferences(message);
 }
