@@ -11,6 +11,7 @@ class CommandListItem : public BStringItem {
 
 public:
 				CommandListItem();
+	virtual		~CommandListItem();
 
 	bool		UseTerminal();
 	void		SetUseTerminal(bool enable);

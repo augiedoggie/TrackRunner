@@ -15,6 +15,12 @@ CommandListItem::CommandListItem()
 }
 
 
+CommandListItem::~CommandListItem()
+{
+	delete fCommand;
+}
+
+
 bool
 CommandListItem::UseTerminal()
 {
