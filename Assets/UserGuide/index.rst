@@ -175,7 +175,7 @@ Other Command Examples
    fi
 
    for ((i = 1; i <= $#; i++)); do
-      clipString+=" ${!i}"$'\n'
+      clipString+="${!i}"$'\n'
    done
 
    if [ -n "$clipString" ]; then
