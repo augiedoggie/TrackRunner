@@ -6,7 +6,8 @@ if (($# == 0)); then
 fi
 
 for ((i = 1; i <= $#; i++)); do
-	clipString+=" ${!i}"$'\n'
+	#clipString+=" ${!i}" ## space separator
+	clipString+="${!i}"$'\n' ## newline seperator
 done
 
 if [ -n "$clipString" ]; then
