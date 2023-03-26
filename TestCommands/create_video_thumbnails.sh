@@ -45,8 +45,18 @@ function nail_it {
 
 
 for ((i = 1; i <= $#; i++)); do
-	## TODO run mimeset and check for a video mimetype?
-	if [ -f "${!i}" ];then
+	if [ ! -f "${!i}" ];then
+		echo "Skipping non-file ${!i}"
+		continue
+	fi
+
+	mimeset "${!i}"
+
+	mimeType=`catattr -d BEOS:TYPE "${!i}"`
+
+	if [[ "$mimeType" == video/* ]];then
 		nail_it "${!i}"
+	else
+		echo "Skipping non-video mimetype($mimeType) for ${!i}"
 	fi
 done
