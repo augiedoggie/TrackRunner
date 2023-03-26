@@ -27,13 +27,13 @@ function nail_it {
 		return
 	fi
 
-	## clear out any existing thumbnail data
-	rmattr -p "Media:Thumbnail*" "$videoFile" 2>/dev/null
-
 	## make Tracker happy with a square image
 	gm convert "$thumbnailFile" -background none -gravity center -extent 128x128 "$thumbnailFile"
 
 	if (($? == 0));then
+		## clear out any existing thumbnail data
+		rmattr -p "Media:Thumbnail*" "$videoFile" 2>/dev/null
+
 		addattr -t time Media:Thumbnail:CreationTime `date +%s` "$videoFile"
 		addattr -f "$thumbnailFile" -t raw Media:Thumbnail "$videoFile"
 	else
@@ -45,5 +45,8 @@ function nail_it {
 
 
 for ((i = 1; i <= $#; i++)); do
-	nail_it ${!i}
+	## TODO run mimeset and check for a video mimetype?
+	if [ -f "${!i}" ];then
+		nail_it "${!i}"
+	fi
 done
