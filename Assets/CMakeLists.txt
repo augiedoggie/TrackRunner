@@ -11,6 +11,8 @@ add_custom_command(
 
 add_custom_target("UserGuide" ALL DEPENDS ${PROJECT_BINARY_DIR}/UserGuide/index.html)
 
+add_custom_command(TARGET "UserGuide" POST_BUILD COMMAND mimeset ${PROJECT_BINARY_DIR}/UserGuide/_static/*.css)
+
 set_property(DIRECTORY APPEND PROPERTY ADDITIONAL_CLEAN_FILES
 	${PROJECT_BINARY_DIR}/UserGuide
 	${CMAKE_CURRENT_BINARY_DIR}/environment.pickle
