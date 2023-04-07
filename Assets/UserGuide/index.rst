@@ -17,7 +17,7 @@ Writing Scripts
 
 
 TrackRunner will set the working directory and pass any selected files/folders as arguments to the command.  This
-allows you to create small Tracker add-ons using many interpreted languages.  See the `Other Command Examples`_ section
+allows you to create small Tracker add-ons using many interpreted languages.  See the `Other Command & Script Examples`_ section
 for more.
 
 .. code-block:: bash
@@ -146,15 +146,37 @@ Allows you to change the menu label for the `Tracker Context Menu`_.
 
 
 
-Other Command Examples
-----------------------
+Other Command & Script Examples
+-------------------------------
+
+Basic Commands
+^^^^^^^^^^^^^^
+
++-----------------------------------------+----------------------------------------------------+
+| Command                                 | Description                                        |
++=========================================+====================================================+
+| `java -jar`                             | Run a java application                             |
++-----------------------------------------+----------------------------------------------------+
+| `python3.9 -m http.server -b 0.0.0.0 #` | Start a python web server in the current directory |
++-----------------------------------------+----------------------------------------------------+
+| `emacsclient -n -c -a ""`               | Open a file for editing with emacsclient           |
++-----------------------------------------+----------------------------------------------------+
+
+
+Basic Scripts
+^^^^^^^^^^^^^
+
+
+.. literalinclude:: ../../TestCommands/generate_md5.sh
+   :language: bash
+   :caption: Generate MD5 checksum file `[generate_md5.sh @ github] <https://github.com/augiedoggie/TrackRunner/TestCommands/generate_md5.sh>`_
 
 
 .. code-block:: bash
    :caption: Use scp to copy selected files/folders to a remote host
 
 
-   #!/bin/bash
+   #!/usr/bin/env bash
 
    if (($# == 0)); then
       echo "Nothing selected"
@@ -164,51 +186,23 @@ Other Command Examples
    scp -r "$@" myhost:
 
 
-.. code-block:: bash
-   :caption: Copy the selected file paths to the clipboard
-
-   #!/bin/bash
-
-   if (($# == 0)); then
-      alert --stop "Nothing selected"
-      exit
-   fi
-
-   for ((i = 1; i <= $#; i++)); do
-      clipString+="${!i}"$'\n'
-   done
-
-   if [ -n "$clipString" ]; then
-      clipboard -c "$clipString"
-   fi
+.. literalinclude:: ../../TestCommands/copy_paths_to_clipboard.sh
+   :language: bash
+   :caption: Copy the selected file paths to the clipboard `[copy_paths_to_clipboard.sh @ github] <https://github.com/augiedoggie/TrackRunner/TestCommands/copy_paths_to_clipboard.sh>`_
 
 
-.. code-block:: bash
-   :caption: Toggle a BFS attribute on/off
+Intermediate Scripts
+^^^^^^^^^^^^^^^^^^^^
 
-   #!/bin/bash
 
-   if (($# == 0)); then
-      alert --stop "Nothing selected"
-      exit
-   fi
+.. literalinclude:: ../../TestCommands/toggle_bfs_attribute.sh
+   :language: bash
+   :caption: Toggle a BFS attribute on/off `[toggle_bfs_attribute.sh @ github] <https://github.com/augiedoggie/TrackRunner/TestCommands/toggle_bfs_attribute.sh>`_
 
-   attribute="MyTestAttribute"
+.. literalinclude:: ../../TestCommands/create_video_thumbnails.sh
+   :language: bash
+   :caption: Create Tracker thumbnail icons for video files `[create_video_thumbnails.sh @ github] <https://github.com/augiedoggie/TrackRunner/TestCommands/create_video_thumbnails.sh>`_
 
-   for ((i = 1; i <= $#; i++)); do
-      if catattr $attribute "${!i}" > /dev/null 2>& 1; then
-         state="enabled"
-         button="Disable"
-      else
-         state="disabled"
-         button="Enable"
-      fi
-
-      if ! alert "$attribute is currently ${state} for ${!i}" "Cancel" $button > /dev/null; then
-         if [[ $state == "disabled" ]]; then
-            addattr -t int32 $attribute 1 "${!i}"
-         else
-            rmattr $attribute "${!i}"
-         fi
-      fi
-   done
+.. literalinclude:: ../../TestCommands/extract_archive.sh
+   :language: bash
+   :caption: Extract various archive types using the tar/zip/package commands `[extract_archive.sh @ github] <https://github.com/augiedoggie/TrackRunner/TestCommands/extract_archive.sh>`_
