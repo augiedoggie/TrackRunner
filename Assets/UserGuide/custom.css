@@ -55,17 +55,17 @@ p.topic-title {
     font-size: 1.5em;
 }
 
-td p {
-    text-align: center;
-}
+/* td p { */
+/*     text-align: center; */
+/* } */
 
-table.docutils td {
-    border-bottom: 0px;
-}
+/* table.docutils td { */
+/*     border-bottom: 0px; */
+/* } */
 
-table.docutils td + td {
-    border-left: solid 1px #f0f0f0;
-}
+/* table.docutils td + td { */
+/*     border-left: solid 1px #f0f0f0; */
+/* } */
 
 .note {
     /*background: #e4ffde url("../_images/lightbulb.png") 15px 15px no-repeat;*/
