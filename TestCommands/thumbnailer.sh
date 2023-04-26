@@ -3,6 +3,7 @@
 ## Add Tracker thumbnails for various file types
 ##
 ## PDF requires the poppler and graphicsmagick packages
+## POSTSCRIPT requires the ghostscript_gpl and graphicsmagick packages
 ## SVG requires the librsvg package
 ## VIDEO requres the ffmpegthumbnailer and graphicsmagick packages
 ##
@@ -31,6 +32,11 @@ for ((i = 1; i <= $#; i++)); do
 	case "$mimeType" in
 		application/pdf)
 			pdftoppm -singlefile -png -f 1 -l 1 -scale-to 128 "${!i}" "${thumbnailFile%.png}"
+			;;
+		application/postscript)
+			needsResize=false
+			gs -sDEVICE=png16m -dNOPAUSE -dBATCH -dSAFER -dGraphicsAlphaBits=4 -dFirstPage=1 -dLastPage=1 -r300 -sOutputFile="$thumbnailFile" "${!i}"
+			gm convert "$thumbnailFile" -thumbnail 128x128 -background none -gravity center -extent 128x128 "$thumbnailFile"
 			;;
 		video/*)
 			ffmpegthumbnailer -i "${!i}" -o "$thumbnailFile"
