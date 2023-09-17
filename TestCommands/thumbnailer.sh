@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/env bash
 
 ## Add Tracker thumbnails for various file types
 ##

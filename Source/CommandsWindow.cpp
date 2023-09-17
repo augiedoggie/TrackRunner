@@ -39,7 +39,7 @@ enum {
 CommandsWindow::CommandsWindow(BString& title)
 	:
 	BWindow(BRect(100, 100, 700, 450), title, B_TITLED_WINDOW,
-			B_ASYNCHRONOUS_CONTROLS | B_AUTO_UPDATE_SIZE_LIMITS | B_CLOSE_ON_ESCAPE),
+		B_ASYNCHRONOUS_CONTROLS | B_AUTO_UPDATE_SIZE_LIMITS | B_CLOSE_ON_ESCAPE),
 	fBrowsePanel(NULL)
 {
 	fListView = new SortableListView("CommandList", kListUpdateAction);

@@ -51,8 +51,8 @@ RunnerApp::MessageReceived(BMessage* message)
 
 			fInitialWindowShown = true;
 			_ShowManageWindow();
-		}
 			break;
+		}
 		default:
 			BApplication::MessageReceived(message);
 			break;
@@ -73,7 +73,7 @@ RunnerApp::ReadyToRun()
 
 
 void
-RunnerApp::RefsReceived(BMessage *message)
+RunnerApp::RefsReceived(BMessage* message)
 {
 	CommandSelectWindow* window = new CommandSelectWindow(message);
 	window->Lock();

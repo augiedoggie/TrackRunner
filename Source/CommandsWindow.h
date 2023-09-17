@@ -13,7 +13,8 @@ class BFilePanel;
 class BListView;
 class BTextControl;
 
-namespace BPrivate {
+namespace BPrivate
+{
 class BToolBar;
 }
 

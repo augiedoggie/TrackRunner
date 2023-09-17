@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/env bash
 
 if (($# == 0)); then
 	alert --stop "Nothing selected"

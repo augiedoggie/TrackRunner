@@ -18,7 +18,7 @@
 #include <private/shared/CommandPipe.h>
 
 #ifdef USE_MENUITEM_ICONS
-#include <private/tracker/IconMenuItem.h>
+	#include <private/tracker/IconMenuItem.h>
 #endif
 
 enum {
@@ -75,7 +75,7 @@ RunnerAddOn::RunCommand(BMessage* message)
 		BString titleString(nameString);
 		titleString << " : " << cwdPath.Path();
 
-		const char* argv[] = { "-w", cwdPath.Path(), "-t", titleString.String(), "/bin/sh", "-c", commandString, NULL };
+		const char* argv[] = {"-w", cwdPath.Path(), "-t", titleString.String(), "/bin/sh", "-c", commandString, NULL};
 		be_roster->Launch(kTerminalSignature, 7, argv);
 	} else {
 		BString cd;
@@ -132,7 +132,7 @@ RunnerAddOn::OpenUserGuide(bool useAppImage)
 		indexLocation.SetTo(list.First());
 	}
 
-	const char* args[] = { indexLocation.Path(), NULL };
+	const char* args[] = {indexLocation.Path(), NULL};
 
 	status_t rc = be_roster->Launch("application/x-vnd.Be.URL.https", 1, args);
 	if (rc != B_OK && rc != B_ALREADY_RUNNING) {
@@ -284,27 +284,27 @@ message_received(BMessage* message)
 			status_t rc = be_roster->Launch(kAppSignature, &launchMessage);
 			if (rc != B_OK && rc != B_ALREADY_RUNNING)
 				(new BAlert("ErrorAlert", "Unable to launch TrackRunner application", "OK", NULL, NULL, B_WIDTH_FROM_LABEL, B_STOP_ALERT))->Go();
-		}
 			break;
+		}
 		case kLaunchPrefsWhat:
 		{
 			BMessage launchMessage(kLaunchPrefsWhat);
 			status_t rc = be_roster->Launch(kAppSignature, &launchMessage);
 			if (rc != B_OK && rc != B_ALREADY_RUNNING)
 				(new BAlert("ErrorAlert", "Unable to launch TrackRunner application", "OK", NULL, NULL, B_WIDTH_FROM_LABEL, B_STOP_ALERT))->Go();
-		}
 			break;
+		}
 		case kUserGuideWhat:
 			RunnerAddOn::OpenUserGuide();
 			break;
 		case kGithubWhat:
 		{
-			const char* args[] = { kGithubUrl, NULL };
+			const char* args[] = {kGithubUrl, NULL};
 			status_t rc = be_roster->Launch("application/x-vnd.Be.URL.https", 1, args);
 			if (rc != B_OK && rc != B_ALREADY_RUNNING)
 				(new BAlert("Error", "Failed to launch URL", "Ok", NULL, NULL, B_WIDTH_AS_USUAL, B_STOP_ALERT))->Go();
-		}
 			break;
+		}
 		default:
 			break;
 	}

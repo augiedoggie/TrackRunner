@@ -145,7 +145,7 @@ CommandSelectWindow::QuitRequested()
 
 
 void
-CommandSelectWindow::MessageReceived(BMessage *message) {
+CommandSelectWindow::MessageReceived(BMessage* message) {
 	switch (message->what) {
 		case kDirectoryRefReceived:
 		{
@@ -155,8 +155,8 @@ CommandSelectWindow::MessageReceived(BMessage *message) {
 
 			BPath cwdPath(&ref);
 			fDirectoryTextControl->SetText(cwdPath.Path());
-		}
 			break;
+		}
 		case kCommandRefReceived:
 		{
 			entry_ref ref;
@@ -166,8 +166,8 @@ CommandSelectWindow::MessageReceived(BMessage *message) {
 			//TODO deselect listitem?
 			BPath cmdPath(&ref);
 			fCommandTextControl->SetText(cmdPath.Path());
-		}
 			break;
+		}
 		case kCommandTextAction:
 			//TODO deselect listitem?
 			// disable run button if command is empty

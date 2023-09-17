@@ -5,8 +5,8 @@
 #define _CONSTANTS_H_
 
 #ifdef __GNUC__
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wunused-variable"
+	#pragma GCC diagnostic push
+	#pragma GCC diagnostic ignored "-Wunused-variable"
 #endif
 
 static const char* kAppSignature		= "application/x-vnd.cpr.TrackRunner";
@@ -35,7 +35,7 @@ static const char* kCommandDataKey			= "command:data";
 static bool kIconMenusDefault = true;
 
 #ifdef __GNUC__
-#pragma GCC diagnostic pop
+	#pragma GCC diagnostic pop
 #endif
 
 #endif // _CONSTANTS_H_
