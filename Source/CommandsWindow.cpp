@@ -23,6 +23,7 @@
 #include <Roster.h>
 #include <ScrollView.h>
 #include <StringView.h>
+#include <cstdio>
 #include <private/shared/ToolBar.h>
 
 
@@ -84,7 +85,7 @@ CommandsWindow::CommandsWindow(BString& title)
 						.SetInsets(0)
 						.Add(fBrowseButton = new BButton("Browse" B_UTF8_ELLIPSIS, new BMessage(kBrowseCommandAction)))
 						.AddGlue()
-						.Add(fEditButton = new BButton("Edit" B_UTF8_ELLIPSIS, new BMessage(kEditCommandAction)))
+						.Add(fEditButton = new BButton("Edit file" B_UTF8_ELLIPSIS, new BMessage(kEditCommandAction)))
 					.End()
 					.Add(fTerminalCheckBox, 1, 3)
 				.End()
@@ -184,17 +185,16 @@ CommandsWindow::_BrowseCommand()
 void
 CommandsWindow::_EditCommand()
 {
-	if (_CommandIsScript()) {
-		const char* argv[] = { fCommandControl->Text(), NULL };
-		be_roster->Launch("text/x-source-code", 1, argv);
-	}
+	BString file = _Deescape(fCommandControl->Text());
+	const char* argv[] = { file.String(), NULL };
+	be_roster->Launch("text/x-source-code", 1, argv);
 }
 
 
 bool
 CommandsWindow::_CommandIsScript()
 {
-	BPath path = fCommandControl->Text();
+	BPath path = _Deescape(fCommandControl->Text());
 	if (path.InitCheck() != B_OK)
 		return false;
 
@@ -206,6 +206,16 @@ CommandsWindow::_CommandIsScript()
 
 	return false;
 }
+
+
+const char*
+CommandsWindow::_Deescape(const char* path)
+{
+	BString text(path);
+	text.CharacterDeescape('\\');
+	return text.String();
+}
+
 
 void
 CommandsWindow::_InitNewCommand()
