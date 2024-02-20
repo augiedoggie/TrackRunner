@@ -17,8 +17,10 @@
 #include <IconUtils.h>
 #include <LayoutBuilder.h>
 #include <ListView.h>
+#include <NodeInfo.h>
 #include <Path.h>
 #include <Resources.h>
+#include <Roster.h>
 #include <ScrollView.h>
 #include <StringView.h>
 #include <private/shared/ToolBar.h>
@@ -32,6 +34,7 @@ enum {
 	kUserGuideAction = 'GiDe',
 	kListSelectAction = 'LsTs',
 	kBrowseCommandAction = 'BrWz',
+	kEditCommandAction = 'EdWz',
 	kListUpdateAction = 'LsUp'
 };
 
@@ -81,6 +84,7 @@ CommandsWindow::CommandsWindow(BString& title)
 						.SetInsets(0)
 						.Add(fBrowseButton = new BButton("Browse" B_UTF8_ELLIPSIS, new BMessage(kBrowseCommandAction)))
 						.AddGlue()
+						.Add(fEditButton = new BButton("Edit" B_UTF8_ELLIPSIS, new BMessage(kEditCommandAction)))
 					.End()
 					.Add(fTerminalCheckBox, 1, 3)
 				.End()
@@ -121,6 +125,9 @@ CommandsWindow::MessageReceived(BMessage* message)
 			break;
 		case kBrowseCommandAction:
 			_BrowseCommand();
+			break;
+		case kEditCommandAction:
+			_EditCommand();
 			break;
 		case kDeleteCommandAction:
 			_DeleteCommand();
@@ -173,6 +180,32 @@ CommandsWindow::_BrowseCommand()
 	fBrowsePanel->Show();
 }
 
+
+void
+CommandsWindow::_EditCommand()
+{
+	if (_CommandIsScript()) {
+		const char* argv[] = { fCommandControl->Text(), NULL };
+		be_roster->Launch("text/x-source-code", 1, argv);
+	}
+}
+
+
+bool
+CommandsWindow::_CommandIsScript()
+{
+	BPath path = fCommandControl->Text();
+	if (path.InitCheck() != B_OK)
+		return false;
+
+	char mimeType[B_MIME_TYPE_LENGTH];
+	BNode commandNode(path.Path());
+	BNodeInfo(&commandNode).GetType(mimeType);
+	if (strncmp("text/", mimeType, 5) == 0)
+		return true;
+
+	return false;
+}
 
 void
 CommandsWindow::_InitNewCommand()
@@ -231,6 +264,7 @@ CommandsWindow::_SelectItem()
 	fCommandControl->SetEnabled(true);
 
 	fBrowseButton->SetEnabled(true);
+	fEditButton->SetEnabled(true);
 
 	fTerminalCheckBox->SetValue(item->UseTerminal());
 	fTerminalCheckBox->SetEnabled(true);
@@ -252,6 +286,8 @@ CommandsWindow::_UpdateItem()
 		item->SetText(fNameControl->Text());
 		fListView->InvalidateItem(fListView->CurrentSelection());
 	}
+
+	fEditButton->SetEnabled(_CommandIsScript());
 
 	_SaveCommands();
 }
@@ -320,6 +356,7 @@ CommandsWindow::_InitControls()
 	fCommandControl->SetEnabled(false);
 
 	fBrowseButton->SetEnabled(false);
+	fEditButton->SetEnabled(false);
 
 	fTerminalCheckBox->SetValue(1);
 	fTerminalCheckBox->SetEnabled(false);
