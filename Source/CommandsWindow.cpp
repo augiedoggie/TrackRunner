@@ -17,8 +17,10 @@
 #include <IconUtils.h>
 #include <LayoutBuilder.h>
 #include <ListView.h>
+#include <NodeInfo.h>
 #include <Path.h>
 #include <Resources.h>
+#include <Roster.h>
 #include <ScrollView.h>
 #include <StringView.h>
 #include <private/shared/ToolBar.h>
@@ -32,6 +34,7 @@ enum {
 	kUserGuideAction = 'GiDe',
 	kListSelectAction = 'LsTs',
 	kBrowseCommandAction = 'BrWz',
+	kShowCommandAction = 'SwWz',
 	kListUpdateAction = 'LsUp'
 };
 
@@ -81,6 +84,7 @@ CommandsWindow::CommandsWindow(BString& title)
 						.SetInsets(0)
 						.Add(fBrowseButton = new BButton("Browse" B_UTF8_ELLIPSIS, new BMessage(kBrowseCommandAction)))
 						.AddGlue()
+						.Add(fShowButton = new BButton("Show in Tracker", new BMessage(kShowCommandAction)))
 					.End()
 					.Add(fTerminalCheckBox, 1, 3)
 				.End()
@@ -120,6 +124,9 @@ CommandsWindow::MessageReceived(BMessage* message)
 			break;
 		case kBrowseCommandAction:
 			_BrowseCommand();
+			break;
+		case kShowCommandAction:
+			_ShowCommand();
 			break;
 		case kDeleteCommandAction:
 			_DeleteCommand();
@@ -170,6 +177,66 @@ CommandsWindow::_BrowseCommand()
 		fBrowsePanel = new BFilePanel(B_OPEN_PANEL, new BMessenger(this), NULL, B_FILE_NODE, false, NULL, NULL, true);
 
 	fBrowsePanel->Show();
+}
+
+
+void
+CommandsWindow::_ShowCommand()
+{
+	BEntry itemEntry(_Deescape(fCommandControl->Text()));
+	status_t status = itemEntry.InitCheck();
+	if (status == B_OK) {
+		BEntry parentDirectory;
+		status = itemEntry.GetParent(&parentDirectory);
+		if (status == B_OK) {
+			entry_ref ref;
+			status = parentDirectory.GetRef(&ref);
+			if (status == B_OK) {
+				node_ref nref;
+				status = itemEntry.GetNodeRef(&nref);
+				if (status == B_OK)
+					_ShowInTracker(ref, &nref);
+			}
+		}
+	}
+
+
+}
+
+
+status_t
+CommandsWindow::_ShowInTracker(const entry_ref& ref, const node_ref* nref)
+{
+	status_t status = B_ERROR;
+
+	BMessenger tracker("application/x-vnd.Be-TRAK");
+	if (tracker.IsValid()) {
+		BMessage message(B_REFS_RECEIVED);
+		message.AddRef("refs", &ref);
+
+		if (nref != NULL)
+			message.AddData("nodeRefToSelect", B_RAW_TYPE, (void*)nref, sizeof(node_ref));
+
+		status = tracker.SendMessage(&message);
+	}
+	return status;
+}
+
+
+bool
+CommandsWindow::_CommandIsScript()
+{
+	BPath path = fCommandControl->Text();
+	if (path.InitCheck() != B_OK)
+		return false;
+
+	char mimeType[B_MIME_TYPE_LENGTH];
+	BNode commandNode(path.Path());
+	BNodeInfo(&commandNode).GetType(mimeType);
+	if (strncmp("text/", mimeType, 5) == 0)
+		return true;
+
+	return false;
 }
 
 
@@ -230,6 +297,7 @@ CommandsWindow::_SelectItem()
 	fCommandControl->SetEnabled(true);
 
 	fBrowseButton->SetEnabled(true);
+	fShowButton->SetEnabled(true);
 
 	fTerminalCheckBox->SetValue(item->UseTerminal());
 	fTerminalCheckBox->SetEnabled(true);
@@ -251,6 +319,8 @@ CommandsWindow::_UpdateItem()
 		item->SetText(fNameControl->Text());
 		fListView->InvalidateItem(fListView->CurrentSelection());
 	}
+
+	fShowButton->SetEnabled(_CommandIsScript());
 
 	_SaveCommands();
 }
@@ -319,6 +389,7 @@ CommandsWindow::_InitControls()
 	fCommandControl->SetEnabled(false);
 
 	fBrowseButton->SetEnabled(false);
+	fShowButton->SetEnabled(false);
 
 	fTerminalCheckBox->SetValue(1);
 	fTerminalCheckBox->SetEnabled(false);
