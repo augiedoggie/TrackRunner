@@ -115,6 +115,7 @@ void
 CommandsWindow::MessageReceived(BMessage* message)
 {
 	switch (message->what) {
+		case B_SIMPLE_DATA:
 		case B_REFS_RECEIVED:
 			_RefsReceived(message);
 			break;
