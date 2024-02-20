@@ -23,6 +23,7 @@
 #include <Roster.h>
 #include <ScrollView.h>
 #include <StringView.h>
+#include <cstdio>
 #include <private/shared/ToolBar.h>
 
 
@@ -199,8 +200,6 @@ CommandsWindow::_ShowCommand()
 			}
 		}
 	}
-
-
 }
 
 
@@ -226,7 +225,7 @@ CommandsWindow::_ShowInTracker(const entry_ref& ref, const node_ref* nref)
 bool
 CommandsWindow::_CommandIsScript()
 {
-	BPath path = fCommandControl->Text();
+	BPath path = _Deescape(fCommandControl->Text());
 	if (path.InitCheck() != B_OK)
 		return false;
 
@@ -237,6 +236,15 @@ CommandsWindow::_CommandIsScript()
 		return true;
 
 	return false;
+}
+
+
+const char*
+CommandsWindow::_Deescape(const char* path)
+{
+	BString text(path);
+	text.CharacterDeescape('\\');
+	return text.String();
 }
 
 
