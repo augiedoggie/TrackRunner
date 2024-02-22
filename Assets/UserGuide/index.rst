@@ -60,6 +60,9 @@ Command Management Window
 
 
 The command management window allows you to add/edit/remove/sort shortcuts.
+You can drag'n'drop a script to replace the currently shown command path.
+If the command is a script, the `Edit file` button will open it in a text editor.
+
 
 
 Command List
