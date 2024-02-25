@@ -26,9 +26,22 @@ When the add-on is executed the traditional way it will display a command select
 
 ### Build Instructions
 
+In order to build TrackRunner you must have cmake installed.  Optionally, if you wish to build the userguide then you will need the sphinx documentation generator.  These can be installed with the HaikuDepot application or by using the command:
+```
+~> pkgman install cmake sphinx_python310
+```
+
+Once the dependencies are installed, a standard release build of TrackRunner can be created with:
 ```
 ~> cd TrackRunner
 ~/TrackRunner> cmake .
 ~/TrackRunner> make
 ~/TrackRunner> make install
 ```
+
+There are several common options that can also be passed to the cmake command or by using the cmake-gui application.  For example, to create a debug build with the userguide disabled and menuitem icons:
+```
+~/TrackRunner> cmake -DCMAKE_BUILD_TYPE=Debug -DBUILD_USERGUIDE=OFF -DUSE_MENUITEM_ICONS=ON .
+```
+
+*Menuitem icons are an experimental hack.  If the internal Tracker menu code changes then this add-on will cause Tracker to repeatedly crash until it is disabled or recompiled against newer Tracker sources code.  This should only be enabled by advanced users.*
