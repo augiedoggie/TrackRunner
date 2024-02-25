@@ -11,7 +11,11 @@ add_custom_command(
 
 add_custom_target("UserGuide" ALL DEPENDS ${PROJECT_BINARY_DIR}/UserGuide/index.html)
 
-add_custom_command(TARGET "UserGuide" POST_BUILD COMMAND mimeset ${PROJECT_BINARY_DIR}/UserGuide/_static/*.css)
+add_custom_command(TARGET "UserGuide" POST_BUILD
+	COMMAND settype -t text/css ${PROJECT_BINARY_DIR}/UserGuide/_static/*.css
+	COMMAND settype -t text/html ${PROJECT_BINARY_DIR}/UserGuide/*.html
+	COMMAND mimeset ${PROJECT_BINARY_DIR}/UserGuide/**
+	)
 
 set_property(DIRECTORY APPEND PROPERTY ADDITIONAL_CLEAN_FILES
 	${PROJECT_BINARY_DIR}/UserGuide
