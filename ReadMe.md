@@ -44,4 +44,4 @@ There are several common options that can also be passed to the cmake command or
 ~/TrackRunner> cmake -DCMAKE_BUILD_TYPE=Debug -DBUILD_USERGUIDE=OFF -DUSE_MENUITEM_ICONS=ON .
 ```
 
-*Menuitem icons are an experimental hack.  If the internal Tracker menu code changes then this add-on will cause Tracker to repeatedly crash until it is disabled or recompiled against newer Tracker sources code.  This should only be enabled by advanced users.*
+*Menuitem icons are an experimental hack.  If the internal Tracker menu code changes then this add-on will cause Tracker to repeatedly crash until it is disabled or recompiled against newer Tracker source code.  This should only be enabled by advanced users.*
