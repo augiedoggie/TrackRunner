@@ -1,4 +1,4 @@
-## ![TrackRunner Logo](Assets/Icons/TrackRunner.svg) TrackRunner
+## ![TrackRunner Logo](Assets/Icons/TrackRunner.svg) TrackRunner &nbsp; &nbsp; [![Haiku-CI](https://github.com/augiedoggie/TrackRunner/actions/workflows/build.yaml/badge.svg)](https://github.com/augiedoggie/TrackRunner/actions/workflows/build.yaml)
 
 ![TrackRunner Menu ScreenShot](Assets/Screenshots/TrackRunnerMenu.png)
 
