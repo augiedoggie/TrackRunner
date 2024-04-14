@@ -25,6 +25,6 @@ jobs:
           version: ${{ matrix.config.version }}
           architecture: ${{ matrix.config.architecture }}
           run: |
-            ssh user@localhost "pkgman install -y haiku_devel devel:libicuuc cmd:cmake cmd:gcc cmd:as cmd:make" &&
+            ssh user@localhost "pkgman update -y haiku_devel devel:libicuuc cmd:cmake cmd:gcc cmd:as cmd:make" &&
             cmake -B build -S . -DBUILD_USERGUIDE=OFF &&
             make -C build
