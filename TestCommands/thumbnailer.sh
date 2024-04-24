@@ -6,6 +6,7 @@
 ## POSTSCRIPT requires the ghostscript_gpl and graphicsmagick packages
 ## SVG requires the librsvg package
 ## VIDEO requres the ffmpegthumbnailer and graphicsmagick packages
+## HVIF requires no extra packages
 ##
 
 
@@ -21,15 +22,20 @@ for ((i = 1; i <= $#; i++)); do
 		continue
 	fi
 
-	mimeset "${!i}"
+	mimeType=`catattr -d BEOS:TYPE "${!i}" 2>/dev/null`
 
-	mimeType=`catattr -d BEOS:TYPE "${!i}"`
+	## Tracker should have already set the mimetype but try again in case we're not being run from TrackRunner
+	if test -z "$mimeType";then
+		mimeset "${!i}"
+		mimeType=`catattr -d BEOS:TYPE "${!i}" 2>/dev/null`
+	fi
 
 	thumbnailFile="${!i%.*}Thumbnail_$$.png"
 
 	needsResize=true
 
-	case "$mimeType" in
+	## use ,, to lowercase the mimetype
+	case "${mimeType,,}" in
 		application/pdf)
 			pdftoppm -singlefile -png -f 1 -l 1 -scale-to 128 "${!i}" "${thumbnailFile%.png}"
 			;;
@@ -45,6 +51,11 @@ for ((i = 1; i <= $#; i++)); do
 			needsResize=false
 			rsvg-convert -a -w 128 -h 128 -o "$thumbnailFile" "${!i}"
 			;;
+		application/x-vnd.haiku-icon)
+			needsResize=false
+			addattr -f "${!i}" -t icon BEOS:ICON "${!i}"
+			continue
+			;;
 		# text/*)
 		# 	needsResize=false
 		# 	pygmentize -g -f png -O line_numbers=false -o "$thumbnailFile" "${!i}"
@@ -52,7 +63,7 @@ for ((i = 1; i <= $#; i++)); do
 		# 	gm convert "$thumbnailFile" -crop '160x160' -thumbnail 128x128 -background white -gravity NorthWest -extent 128x128 "$thumbnailFile"
 		# 	;;
 		*)
-			echo "Skipping unknown mimetype($mimeType) for ${!i}"
+			echo "Skipping unknown mimetype(${mimeType,,}) for ${!i}"
 			continue
 			;;
 	esac
