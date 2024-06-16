@@ -23,7 +23,6 @@
 #include <Roster.h>
 #include <ScrollView.h>
 #include <StringView.h>
-#include <cstdio>
 #include <private/shared/ToolBar.h>
 
 
