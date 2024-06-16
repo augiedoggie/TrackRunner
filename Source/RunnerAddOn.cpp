@@ -6,6 +6,7 @@
 #include "Preferences.h"
 
 #include <Alert.h>
+#include <Catalog.h>
 #include <InterfaceDefs.h>
 #include <LayoutBuilder.h>
 #include <Menu.h>
@@ -20,6 +21,11 @@
 #ifdef USE_MENUITEM_ICONS
 	#include <private/tracker/IconMenuItem.h>
 #endif
+
+
+#undef B_TRANSLATION_CONTEXT
+#define B_TRANSLATION_CONTEXT "RunnerAddOn"
+
 
 enum {
 	kCommandWhat = 'CMND',
@@ -125,8 +131,10 @@ RunnerAddOn::OpenUserGuide(bool useAppImage)
 	if (entry.InitCheck() != B_OK || !entry.Exists()) {
 		// search other document locations using the BPathFinder API if needed
 		BStringList list;
-		if (BPathFinder::FindPaths(B_FIND_PATH_DOCUMENTATION_DIRECTORY, "TrackRunner/UserGuide/index.html", B_FIND_PATH_EXISTING_ONLY, list) != B_OK) {
-			(new BAlert("Error", "Unable to locate UserGuide html files", "Ok", NULL, NULL, B_WIDTH_AS_USUAL, B_STOP_ALERT))->Go();
+		if (BPathFinder::FindPaths(B_FIND_PATH_DOCUMENTATION_DIRECTORY,
+			"TrackRunner/UserGuide/index.html", B_FIND_PATH_EXISTING_ONLY, list) != B_OK) {
+			(new BAlert("Error", B_TRANSLATE("Unable to locate UserGuide html files"),
+				B_TRANSLATE("OK"), NULL, NULL, B_WIDTH_AS_USUAL, B_STOP_ALERT))->Go();
 			return B_ERROR;
 		}
 		indexLocation.SetTo(list.First());
@@ -136,7 +144,8 @@ RunnerAddOn::OpenUserGuide(bool useAppImage)
 
 	status_t rc = be_roster->Launch("application/x-vnd.Be.URL.https", 1, args);
 	if (rc != B_OK && rc != B_ALREADY_RUNNING) {
-		(new BAlert("Error", "Failed to launch URL", "Ok", NULL, NULL, B_WIDTH_AS_USUAL, B_STOP_ALERT))->Go();
+		(new BAlert("Error", B_TRANSLATE("Failed to launch URL"), B_TRANSLATE("OK"),
+			NULL, NULL, B_WIDTH_AS_USUAL, B_STOP_ALERT))->Go();
 		return rc;
 	}
 
@@ -237,13 +246,13 @@ populate_menu(BMessage* message, BMenu* menu, BHandler* handler)
 	BMenu* prefsSubMenu = NULL;
 	builder
 		.AddSeparator()
-		.AddMenu("Preferences & Help")
+		.AddMenu(B_TRANSLATE("Settings & Help"))
 			.GetMenu(prefsSubMenu)
-			.AddItem("Manage Commands" B_UTF8_ELLIPSIS, commandsMenuMessage)
-			.AddItem("Preferences" B_UTF8_ELLIPSIS, prefsMenuMessage)
+			.AddItem(B_TRANSLATE("Manage commands" B_UTF8_ELLIPSIS), commandsMenuMessage)
+			.AddItem(B_TRANSLATE("Settings" B_UTF8_ELLIPSIS), prefsMenuMessage)
 			.AddSeparator()
-			.AddItem("User Guide", guideMenuMessage)
-			.AddItem("Github Page", githubMenuMessage)
+			.AddItem(B_TRANSLATE("User guide"), guideMenuMessage)
+			.AddItem(B_TRANSLATE("Github page"), githubMenuMessage)
 		.End()
 	.End();
 	// clang-format on
@@ -275,23 +284,29 @@ message_received(BMessage* message)
 	switch (what) {
 		case kCommandWhat:
 			//TODO improve alert message
-			if (RunnerAddOn::RunCommand(message) != B_OK)
-				(new BAlert("ErrorAlert", "Error running command", "OK", NULL, NULL, B_WIDTH_FROM_LABEL, B_STOP_ALERT))->Go();
+			if (RunnerAddOn::RunCommand(message) != B_OK) {
+				(new BAlert("ErrorAlert", B_TRANSLATE("Error running command"), B_TRANSLATE("OK"),
+					NULL, NULL, B_WIDTH_FROM_LABEL, B_STOP_ALERT))->Go();
+			}
 			break;
 		case kManageCommandsWhat:
 		{
 			BMessage launchMessage(kLaunchManageWhat);
 			status_t rc = be_roster->Launch(kAppSignature, &launchMessage);
-			if (rc != B_OK && rc != B_ALREADY_RUNNING)
-				(new BAlert("ErrorAlert", "Unable to launch TrackRunner application", "OK", NULL, NULL, B_WIDTH_FROM_LABEL, B_STOP_ALERT))->Go();
+			if (rc != B_OK && rc != B_ALREADY_RUNNING) {
+				(new BAlert("ErrorAlert", B_TRANSLATE("Unable to launch TrackRunner application"),
+					B_TRANSLATE("OK"), NULL, NULL, B_WIDTH_FROM_LABEL, B_STOP_ALERT))->Go();
+			}
 			break;
 		}
 		case kLaunchPrefsWhat:
 		{
 			BMessage launchMessage(kLaunchPrefsWhat);
 			status_t rc = be_roster->Launch(kAppSignature, &launchMessage);
-			if (rc != B_OK && rc != B_ALREADY_RUNNING)
-				(new BAlert("ErrorAlert", "Unable to launch TrackRunner application", "OK", NULL, NULL, B_WIDTH_FROM_LABEL, B_STOP_ALERT))->Go();
+			if (rc != B_OK && rc != B_ALREADY_RUNNING) {
+				(new BAlert("ErrorAlert", B_TRANSLATE("Unable to launch TrackRunner application"),
+					B_TRANSLATE("OK"), NULL, NULL, B_WIDTH_FROM_LABEL, B_STOP_ALERT))->Go();
+			}
 			break;
 		}
 		case kUserGuideWhat:
@@ -301,8 +316,10 @@ message_received(BMessage* message)
 		{
 			const char* args[] = {kGithubUrl, NULL};
 			status_t rc = be_roster->Launch("application/x-vnd.Be.URL.https", 1, args);
-			if (rc != B_OK && rc != B_ALREADY_RUNNING)
-				(new BAlert("Error", "Failed to launch URL", "Ok", NULL, NULL, B_WIDTH_AS_USUAL, B_STOP_ALERT))->Go();
+			if (rc != B_OK && rc != B_ALREADY_RUNNING) {
+				(new BAlert("Error", B_TRANSLATE("Failed to launch URL"), B_TRANSLATE("OK"),
+					NULL, NULL, B_WIDTH_AS_USUAL, B_STOP_ALERT))->Go();
+			}
 			break;
 		}
 		default:
@@ -322,6 +339,8 @@ process_refs(entry_ref directory, BMessage* refs, void* /*reserved*/)
 	launchMessage.AddRef("TrackRunner:cwd", &directory);
 
 	status_t rc = be_roster->Launch(kAppSignature, &launchMessage);
-	if (rc != B_OK && rc != B_ALREADY_RUNNING)
-		(new BAlert("ErrorAlert", "Unable to launch TrackRunner application", "OK", NULL, NULL, B_WIDTH_FROM_LABEL, B_STOP_ALERT))->Go();
+	if (rc != B_OK && rc != B_ALREADY_RUNNING) {
+		(new BAlert("ErrorAlert", B_TRANSLATE("Unable to launch TrackRunner application"),
+			B_TRANSLATE("OK"), NULL, NULL, B_WIDTH_FROM_LABEL, B_STOP_ALERT))->Go();
+	}
 }

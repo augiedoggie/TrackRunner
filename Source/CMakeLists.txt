@@ -20,6 +20,6 @@ include_directories(AFTER SYSTEM
 
 haiku_add_executable(${PROJECT_NAME} ${${PROJECT_NAME}_sources})
 
-target_link_libraries(${PROJECT_NAME} be shared tracker)
+target_link_libraries(${PROJECT_NAME} be localestub shared tracker)
 
 install(TARGETS ${PROJECT_NAME} RUNTIME DESTINATION add-ons/Tracker)

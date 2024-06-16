@@ -12,6 +12,7 @@
 #include <Application.h>
 #include <Bitmap.h>
 #include <Button.h>
+#include <Catalog.h>
 #include <CheckBox.h>
 #include <FilePanel.h>
 #include <IconUtils.h>
@@ -25,6 +26,9 @@
 #include <StringView.h>
 #include <private/shared/ToolBar.h>
 
+
+#undef B_TRANSLATION_CONTEXT
+#define B_TRANSLATION_CONTEXT "CommandsWindow"
 
 enum {
 	kDeleteCommandAction = 'DeLc',
@@ -53,18 +57,21 @@ CommandsWindow::CommandsWindow(BString& title)
 	scrollView->SetExplicitMaxSize(BSize(250, B_SIZE_UNSET));
 
 	fToolbar = new BToolBar();
-	fToolbar->AddAction(kNewCommandAction, this, _ResourceBitmap("EntryAdd", 16, 16), "Create a new command entry", "New");
-	fToolbar->AddAction(kDeleteCommandAction, this, _ResourceBitmap("EntryDelete", 16, 16), "Delete the selected command entry", "Delete");
+	fToolbar->AddAction(kNewCommandAction, this, _ResourceBitmap("EntryAdd", 16, 16),
+		B_TRANSLATE("Create a new command entry"), B_TRANSLATE("New"));
+	fToolbar->AddAction(kDeleteCommandAction, this, _ResourceBitmap("EntryDelete", 16, 16),
+		B_TRANSLATE("Delete the selected command entry"), B_TRANSLATE("Delete"));
 	fToolbar->AddGlue();
-	fToolbar->AddAction(kUserGuideAction, this, _ResourceBitmap("UserGuide", 16, 16), "Open the user guide", "User Guide");
+	fToolbar->AddAction(kUserGuideAction, this, _ResourceBitmap("UserGuide", 16, 16),
+		B_TRANSLATE("Open the user guide"), B_TRANSLATE("User Guide"));
 
-	fNameControl = new BTextControl("Name:", NULL, NULL);
+	fNameControl = new BTextControl(B_TRANSLATE("Name:"), NULL, NULL);
 	fNameControl->SetModificationMessage(new BMessage(kModificationAction));
 
-	fCommandControl = new BTextControl("Command:", NULL, NULL);
+	fCommandControl = new BTextControl(B_TRANSLATE("Command:"), NULL, NULL);
 	fCommandControl->SetModificationMessage(new BMessage(kModificationAction));
 
-	fTerminalCheckBox = new BCheckBox("Use Terminal", new BMessage(kModificationAction));
+	fTerminalCheckBox = new BCheckBox(B_TRANSLATE("Use Terminal"), new BMessage(kModificationAction));
 	BSize size(fTerminalCheckBox->ExplicitMaxSize());
 	size.SetWidth(B_SIZE_UNLIMITED);
 	fTerminalCheckBox->SetExplicitMaxSize(size);
@@ -82,9 +89,11 @@ CommandsWindow::CommandsWindow(BString& title)
 					.AddTextControl(fCommandControl, 0, 1, B_ALIGN_RIGHT)
 					.AddGroup(B_HORIZONTAL, 0, 1, 2)
 						.SetInsets(0)
-						.Add(fBrowseButton = new BButton("Browse" B_UTF8_ELLIPSIS, new BMessage(kBrowseCommandAction)))
+						.Add(fBrowseButton = new BButton(B_TRANSLATE("Browse" B_UTF8_ELLIPSIS),
+							new BMessage(kBrowseCommandAction)))
 						.AddGlue()
-						.Add(fShowButton = new BButton("Show in Tracker", new BMessage(kShowCommandAction)))
+						.Add(fShowButton = new BButton(B_TRANSLATE("Show in Tracker"),
+							new BMessage(kShowCommandAction)))
 					.End()
 					.Add(fTerminalCheckBox, 1, 3)
 				.End()
@@ -270,8 +279,9 @@ CommandsWindow::_DeleteCommand()
 		return;
 
 	BString alertString;
-	alertString.SetToFormat("Do you wish to delete %s ?", item->Text());
-	if ((new BAlert("DeleteAlert", alertString, "Delete", "Cancel", NULL, B_WIDTH_FROM_LABEL, B_INFO_ALERT))->Go() == 1)
+	alertString.SetToFormat(B_TRANSLATE("Do you wish to delete '%s'?"), item->Text());
+	if ((new BAlert("DeleteAlert", alertString, B_TRANSLATE("Delete"), B_TRANSLATE("Cancel"),
+			NULL, B_WIDTH_FROM_LABEL, B_INFO_ALERT))->Go() == 1)
 		return;
 
 	fListView->RemoveItem(item);

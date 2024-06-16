@@ -7,8 +7,13 @@
 
 #include <Application.h>
 #include <Button.h>
+#include <Catalog.h>
 #include <CheckBox.h>
 #include <LayoutBuilder.h>
+
+
+#undef B_TRANSLATION_CONTEXT
+#define B_TRANSLATION_CONTEXT "PreferencesWindow"
 
 
 enum {
@@ -28,11 +33,12 @@ PreferencesWindow::PreferencesWindow(BString& title)
 	BMessage message;
 	Preferences::ReadPreferences(message);
 
-	fMenuLabelControl = new BTextControl("Menu label:", message.GetString(kMenuLabelKey, kAppTitle), NULL);
+	fMenuLabelControl = new BTextControl(B_TRANSLATE("Menu label:"),
+		message.GetString(kMenuLabelKey, kAppTitle), NULL);
 	fMenuLabelControl->SetModificationMessage(new BMessage(kMenuLabelWhat));
 
 #ifdef USE_MENUITEM_ICONS
-	fIconMenuCheckBox = new BCheckBox("Use icons in menus", new BMessage(kIconCheckBoxWhat));
+	fIconMenuCheckBox = new BCheckBox(B_TRANSLATE("Use icons in menus"), new BMessage(kIconCheckBoxWhat));
 	BSize size(fIconMenuCheckBox->ExplicitMaxSize());
 	size.SetWidth(B_SIZE_UNLIMITED);
 	fIconMenuCheckBox->SetExplicitMaxSize(size);
@@ -49,8 +55,8 @@ PreferencesWindow::PreferencesWindow(BString& title)
 		.AddGlue()
 		.AddGroup(B_HORIZONTAL)
 			.AddGlue()
-			.Add(new BButton("DefaultsButton", "Defaults", new BMessage(kDefaultsButtonWhat)))
-			.Add(new BButton("CloseButton", "Close", new BMessage(B_QUIT_REQUESTED)))
+			.Add(new BButton("DefaultsButton", B_TRANSLATE("Defaults"), new BMessage(kDefaultsButtonWhat)))
+			.Add(new BButton("CloseButton", B_TRANSLATE("Close"), new BMessage(B_QUIT_REQUESTED)))
 		.End()
 	.End();
 	// clang-format on
