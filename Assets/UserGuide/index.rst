@@ -60,6 +60,8 @@ Command Management Window
 
 
 The command management window allows you to add/edit/remove/sort shortcuts.
+You can drag'n'drop a script to replace the currently shown command path.
+If the command is a script, the `Show in Tracker` button will open its location in a Tracker window. From there you can rename it or open it in an editor etc.
 
 
 Command List

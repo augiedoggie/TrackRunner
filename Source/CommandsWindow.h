@@ -33,12 +33,17 @@ private:
 			void		_SelectItem();
 			void		_UpdateItem();
 			void		_BrowseCommand();
+			void		_ShowCommand();
+			status_t	_ShowInTracker(const entry_ref& ref, const node_ref* nref = NULL);
+			bool		_CommandIsScript();
+			const char*	_Deescape(const char* path);
 			void		_RefsReceived(BMessage* message);
 			status_t	_LoadCommands();
 			status_t	_SaveCommands();
 			BBitmap*	_ResourceBitmap(const char* name, float width, float height);
 
 		BButton*		fBrowseButton;
+		BButton*		fShowButton;
 		BCheckBox*		fTerminalCheckBox;
 		BListView*		fListView;
 		BFilePanel*		fBrowsePanel;
