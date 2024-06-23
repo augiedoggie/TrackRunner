@@ -4,6 +4,8 @@ project(TrackRunner)
 
 set(CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/CMakeModules")
 
+set(HAIKU_ENABLE_I18N ON CACHE BOOL "" FORCE)
+
 include(UseHaiku)
 
 option(BUILD_USERGUIDE "Use sphinx to generate the user guide" ON)

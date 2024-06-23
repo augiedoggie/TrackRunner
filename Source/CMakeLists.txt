@@ -20,6 +20,13 @@ include_directories(AFTER SYSTEM
 
 haiku_add_executable(${PROJECT_NAME} ${${PROJECT_NAME}_sources})
 
-target_link_libraries(${PROJECT_NAME} be localestub shared tracker)
+target_link_libraries(${PROJECT_NAME} be shared tracker)
+
+if(HAIKU_ENABLE_I18N)
+	set("${PROJECT_NAME}-APP_MIME_SIG" "x-vnd.cpr.TrackRunner")
+	set("${PROJECT_NAME}-LOCALES" "en")
+	target_link_libraries(${PROJECT_NAME} localestub)
+	haiku_add_i18n(${PROJECT_NAME})
+endif()
 
 install(TARGETS ${PROJECT_NAME} RUNTIME DESTINATION add-ons/Tracker)
