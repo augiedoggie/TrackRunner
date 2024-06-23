@@ -9,11 +9,16 @@
 
 #include <Alert.h>
 #include <Application.h>
-#include <Catalog.h>
 
+
+#ifdef HAIKU_ENABLE_I18N
+#include <Catalog.h>
 
 #undef B_TRANSLATION_CONTEXT
 #define B_TRANSLATION_CONTEXT "RunnerApp"
+#else
+#define B_TRANSLATE(x) x
+#endif
 
 
 RunnerApp::RunnerApp()

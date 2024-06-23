@@ -4,7 +4,7 @@ project(TrackRunner)
 
 set(CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/CMakeModules")
 
-set(HAIKU_ENABLE_I18N ON CACHE BOOL "" FORCE)
+set(HAIKU_ENABLE_I18N ON CACHE BOOL "")
 
 include(UseHaiku)
 

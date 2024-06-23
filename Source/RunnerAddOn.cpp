@@ -6,7 +6,6 @@
 #include "Preferences.h"
 
 #include <Alert.h>
-#include <Catalog.h>
 #include <InterfaceDefs.h>
 #include <LayoutBuilder.h>
 #include <Menu.h>
@@ -23,8 +22,14 @@
 #endif
 
 
+#ifdef HAIKU_ENABLE_I18N
+#include <Catalog.h>
+
 #undef B_TRANSLATION_CONTEXT
 #define B_TRANSLATION_CONTEXT "RunnerAddOn"
+#else
+#define B_TRANSLATE(x) x
+#endif
 
 
 enum {

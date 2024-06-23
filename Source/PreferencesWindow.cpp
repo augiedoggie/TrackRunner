@@ -7,13 +7,18 @@
 
 #include <Application.h>
 #include <Button.h>
-#include <Catalog.h>
 #include <CheckBox.h>
 #include <LayoutBuilder.h>
 
 
+#ifdef HAIKU_ENABLE_I18N
+#include <Catalog.h>
+
 #undef B_TRANSLATION_CONTEXT
 #define B_TRANSLATION_CONTEXT "PreferencesWindow"
+#else
+#define B_TRANSLATE(x) x
+#endif
 
 
 enum {

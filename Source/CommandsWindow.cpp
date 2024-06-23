@@ -12,7 +12,6 @@
 #include <Application.h>
 #include <Bitmap.h>
 #include <Button.h>
-#include <Catalog.h>
 #include <CheckBox.h>
 #include <FilePanel.h>
 #include <IconUtils.h>
@@ -27,8 +26,15 @@
 #include <private/shared/ToolBar.h>
 
 
+#ifdef HAIKU_ENABLE_I18N
+#include <Catalog.h>
+
 #undef B_TRANSLATION_CONTEXT
 #define B_TRANSLATION_CONTEXT "CommandsWindow"
+#else
+#define B_TRANSLATE(x) x
+#endif
+
 
 enum {
 	kDeleteCommandAction = 'DeLc',

@@ -11,7 +11,6 @@
 #include <Application.h>
 #include <Box.h>
 #include <Button.h>
-#include <Catalog.h>
 #include <CheckBox.h>
 #include <FilePanel.h>
 #include <FindDirectory.h>
@@ -22,8 +21,14 @@
 #include <StringView.h>
 
 
+#ifdef HAIKU_ENABLE_I18N
+#include <Catalog.h>
+
 #undef B_TRANSLATION_CONTEXT
 #define B_TRANSLATION_CONTEXT "CommandSelectWindow"
+#else
+#define B_TRANSLATE(x) x
+#endif
 
 
 enum {
