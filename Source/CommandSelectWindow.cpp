@@ -11,6 +11,7 @@
 #include <Application.h>
 #include <Box.h>
 #include <Button.h>
+#include <Catalog.h>
 #include <CheckBox.h>
 #include <FilePanel.h>
 #include <FindDirectory.h>
@@ -19,6 +20,10 @@
 #include <Path.h>
 #include <ScrollView.h>
 #include <StringView.h>
+
+
+#undef B_TRANSLATION_CONTEXT
+#define B_TRANSLATION_CONTEXT "CommandSelectWindow"
 
 
 enum {
@@ -73,19 +78,19 @@ CommandSelectWindow::CommandSelectWindow(BMessage* message)
 	else
 		find_directory(B_USER_DIRECTORY, &cwdPath);
 
-	fDirectoryTextControl = new BTextControl("CWDTextControl", "Directory:", cwdPath.Path(), NULL);
-	fCommandTextControl = new BTextControl("CommandTextControl", "Command:", "", NULL);
+	fDirectoryTextControl = new BTextControl("CWDTextControl", B_TRANSLATE("Folder:"), cwdPath.Path(), NULL);
+	fCommandTextControl = new BTextControl("CommandTextControl", B_TRANSLATE("Command:"), "", NULL);
 	fCommandTextControl->SetModificationMessage(new BMessage(kCommandTextAction));
 	// prevent the text control from growing vertically due to the button
 	fCommandTextControl->TextView()->SetExplicitMaxSize(BSize(B_SIZE_UNSET, fCommandTextControl->TextView()->MinSize().Height()));
 
-	fUseTerminalCheckBox = new BCheckBox("Use Terminal");
+	fUseTerminalCheckBox = new BCheckBox(B_TRANSLATE("Use Terminal"));
 	// allow the checkbox to grow horizontally as the window resizes
 	BSize size(fUseTerminalCheckBox->ExplicitMaxSize());
 	size.SetWidth(B_SIZE_UNLIMITED);
 	fUseTerminalCheckBox->SetExplicitMaxSize(size);
 
-	fRunButton = new BButton("Run", new BMessage(kRunCommandAction));
+	fRunButton = new BButton(B_TRANSLATE("Run"), new BMessage(kRunCommandAction));
 	fRunButton->MakeDefault(true);
 
 	// clang-format off
@@ -95,14 +100,14 @@ CommandSelectWindow::CommandSelectWindow(BMessage* message)
 		.AddStrut(10.0)
 		.AddGrid(B_USE_HALF_ITEM_SPACING, B_USE_HALF_ITEM_SPACING)
 			.AddTextControl(fCommandTextControl, 0, 0, B_ALIGN_RIGHT)
-			.Add(new BButton("Browse" B_UTF8_ELLIPSIS, new BMessage(kBrowseCommandAction)), 2, 0)
+			.Add(new BButton(B_TRANSLATE("Browse" B_UTF8_ELLIPSIS), new BMessage(kBrowseCommandAction)), 2, 0)
 			.AddTextControl(fDirectoryTextControl, 0, 1, B_ALIGN_RIGHT)
-			.Add(new BButton("Browse" B_UTF8_ELLIPSIS, new BMessage(kBrowseDirectoryAction)), 2, 1)
+			.Add(new BButton(B_TRANSLATE("Browse" B_UTF8_ELLIPSIS), new BMessage(kBrowseDirectoryAction)), 2, 1)
 			.Add(fUseTerminalCheckBox, 1, 2)
 		.End()
 		.AddGroup(B_HORIZONTAL, B_USE_HALF_ITEM_SPACING, 1.0)
 			.AddGlue()
-			.Add(new BButton("Cancel", new BMessage(B_QUIT_REQUESTED)))
+			.Add(new BButton(B_TRANSLATE("Cancel"), new BMessage(B_QUIT_REQUESTED)))
 			.Add(fRunButton)
 		.End()
 	.End();
@@ -217,9 +222,11 @@ CommandSelectWindow::_Run()
 
 	fRefsMessage->AddMessage(kCommandDataKey, &itemMessage);
 
-	if (RunnerAddOn::RunCommand(fRefsMessage) != B_OK)
+	if (RunnerAddOn::RunCommand(fRefsMessage) != B_OK) {
 		//TODO improve error message
-		(new BAlert("RunAlert", "Error running the command!", "OK", NULL, NULL, B_WIDTH_FROM_LABEL, B_STOP_ALERT))->Go();
+		(new BAlert("RunAlert", B_TRANSLATE("Error running the command!"), B_TRANSLATE("OK"),
+			NULL, NULL, B_WIDTH_FROM_LABEL, B_STOP_ALERT))->Go();
+	}
 
 	PostMessage(B_QUIT_REQUESTED);
 }

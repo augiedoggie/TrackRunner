@@ -9,6 +9,11 @@
 
 #include <Alert.h>
 #include <Application.h>
+#include <Catalog.h>
+
+
+#undef B_TRANSLATION_CONTEXT
+#define B_TRANSLATION_CONTEXT "RunnerApp"
 
 
 RunnerApp::RunnerApp()
@@ -87,15 +92,16 @@ RunnerApp::RefsReceived(BMessage* message)
 void
 RunnerApp::AboutRequested()
 {
-	(new BAlert("AboutWindow", "TrackRunner\nWritten by Chris Roberts", "OK", NULL, NULL, B_WIDTH_FROM_LABEL))->Go();
+	(new BAlert("AboutWindow", B_TRANSLATE("TrackRunner\nWritten by Chris Roberts"),
+		B_TRANSLATE("OK"), NULL, NULL, B_WIDTH_FROM_LABEL))->Go();
 }
 
 
 void
 RunnerApp::_ShowPreferencesWindow()
 {
-	BString title(kAppTitle);
-	title << " Preferences";
+	BString title(B_TRANSLATE("%trackrunner% settings"));
+	title.ReplaceFirst("%trackrunner%", kAppTitle);
 	PreferencesWindow* window = new PreferencesWindow(title);
 	window->Lock();
 	window->CenterOnScreen();
@@ -107,8 +113,8 @@ RunnerApp::_ShowPreferencesWindow()
 void
 RunnerApp::_ShowManageWindow()
 {
-	BString title(kAppTitle);
-	title << " Commands";
+	BString title(B_TRANSLATE("%trackrunner% commands"));
+	title.ReplaceFirst("%trackrunner%", kAppTitle);
 	CommandsWindow* window = new CommandsWindow(title);
 	window->Lock();
 	window->CenterOnScreen();
