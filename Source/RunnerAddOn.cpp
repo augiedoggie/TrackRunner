@@ -3,7 +3,7 @@
 
 #include "RunnerAddOn.h"
 #include "Constants.h"
-#include "Preferences.h"
+#include "Settings.h"
 
 #include <Alert.h>
 #include <InterfaceDefs.h>
@@ -169,7 +169,7 @@ populate_menu(BMessage* message, BMenu* menu, BHandler* handler)
 		menu->RemoveItem(menuItem);
 
 	BMessage prefsMessage;
-	Preferences::ReadPreferences(prefsMessage);
+	Settings::ReadSettings(prefsMessage);
 
 	BMenu* trackMenu = new BMenu(prefsMessage.GetString(kMenuLabelKey, kAppTitle));
 	BLayoutBuilder::Menu<> builder = BLayoutBuilder::Menu<>(trackMenu);

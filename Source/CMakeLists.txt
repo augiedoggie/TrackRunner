@@ -7,8 +7,8 @@ set(${PROJECT_NAME}_sources
 	CommandsWindow.cpp
 	RunnerAddOn.cpp
 	RunnerApp.cpp
-	Preferences.cpp
-	PreferencesWindow.cpp
+	Settings.cpp
+	SettingsWindow.cpp
 	SortableListView.cpp
 	TrackRunner.rdef
 	)

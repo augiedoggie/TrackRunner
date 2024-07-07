@@ -44,7 +44,7 @@ Tracker Context Menu
    :align: center
 
 
-The context menu allows you to directly execute one of your saved commands as well as open the preferences or
+The context menu allows you to directly execute one of your saved commands as well as open the settings or
 management window.
 
 ..
@@ -122,11 +122,11 @@ Use the Terminal application to run the command so that the output can be viewed
 
 
 
-Preferences
+Settings
 -----------
 
 .. image:: ../Screenshots/TrackRunnerPrefs.png
-   :alt: Preferences window
+   :alt: Settings window
    :align: center
 
 

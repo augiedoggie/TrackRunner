@@ -13,7 +13,7 @@ Manage commands…	RunnerAddOn		Manage commands…
 Use Terminal	CommandSelectWindow		Use Terminal
 Settings & Help	RunnerAddOn		Settings & Help
 Settings…	RunnerAddOn		Settings…
-Defaults	PreferencesWindow		Defaults
+Defaults	SettingsWindow		Defaults
 Failed to launch URL	RunnerAddOn		Failed to launch URL
 Command:	CommandsWindow		Command:
 TrackRunner\nWritten by Chris Roberts	RunnerApp		TrackRunner\nWritten by Chris Roberts
@@ -23,9 +23,9 @@ Cancel	CommandSelectWindow		Cancel
 New	CommandsWindow		New
 Do you wish to delete '%s'?	CommandsWindow		Do you wish to delete '%s'?
 Unable to launch TrackRunner application	RunnerAddOn		Unable to launch TrackRunner application
-Menu label:	PreferencesWindow		Menu label:
+Menu label:	SettingsWindow		Menu label:
 Show in Tracker	CommandsWindow		Show in Tracker
-Close	PreferencesWindow		Close
+Close	SettingsWindow		Close
 Cancel	CommandsWindow		Cancel
 Browse…	CommandSelectWindow		Browse…
 Open the user guide	CommandsWindow		Open the user guide

@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 // SPDX-FileCopyrightText: 2022 Chris Roberts
 
-#include "Preferences.h"
+#include "Settings.h"
 #include "Constants.h"
 
 #include <File.h>
@@ -10,7 +10,7 @@
 
 
 status_t
-Preferences::ReadPreferences(BMessage& message)
+Settings::ReadSettings(BMessage& message)
 {
 	BPath prefsPath;
 	if (find_directory(B_USER_SETTINGS_DIRECTORY, &prefsPath) != B_OK)
@@ -30,7 +30,7 @@ Preferences::ReadPreferences(BMessage& message)
 
 
 status_t
-Preferences::WritePreferences(BMessage& message)
+Settings::WriteSettings(BMessage& message)
 {
 	BPath prefsPath;
 	if (find_directory(B_USER_SETTINGS_DIRECTORY, &prefsPath) != B_OK)

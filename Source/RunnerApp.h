@@ -18,7 +18,7 @@ public:
 
 private:
 		void		_ShowManageWindow();
-		void		_ShowPreferencesWindow();
+		void		_ShowSettingsWindow();
 
 	bool		fInitialWindowShown;
 };

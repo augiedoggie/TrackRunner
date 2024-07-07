@@ -5,7 +5,7 @@
 #include "CommandSelectWindow.h"
 #include "CommandsWindow.h"
 #include "Constants.h"
-#include "PreferencesWindow.h"
+#include "SettingsWindow.h"
 
 #include <Alert.h>
 #include <Application.h>
@@ -35,9 +35,9 @@ RunnerApp::MessageReceived(BMessage* message)
 	switch (message->what) {
 		case kLaunchPrefsWhat:
 		{
-			// search for existing preferences window
+			// search for existing settings window
 			for (int32 index = 0; index < CountWindows(); index++) {
-				PreferencesWindow* window = dynamic_cast<PreferencesWindow*>(WindowAt(index));
+				SettingsWindow* window = dynamic_cast<SettingsWindow*>(WindowAt(index));
 				if (window != NULL) {
 					window->Activate();
 					return;
@@ -45,7 +45,7 @@ RunnerApp::MessageReceived(BMessage* message)
 			}
 
 			fInitialWindowShown = true;
-			_ShowPreferencesWindow();
+			_ShowSettingsWindow();
 		}
 			break;
 		case kLaunchManageWhat:
@@ -103,11 +103,11 @@ RunnerApp::AboutRequested()
 
 
 void
-RunnerApp::_ShowPreferencesWindow()
+RunnerApp::_ShowSettingsWindow()
 {
 	BString title(B_TRANSLATE("%trackrunner% settings"));
 	title.ReplaceFirst("%trackrunner%", kAppTitle);
-	PreferencesWindow* window = new PreferencesWindow(title);
+	SettingsWindow* window = new SettingsWindow(title);
 	window->Lock();
 	window->CenterOnScreen();
 	window->Show();

@@ -4,7 +4,7 @@
 #include "CommandSelectWindow.h"
 #include "CommandListItem.h"
 #include "Constants.h"
-#include "Preferences.h"
+#include "Settings.h"
 #include "RunnerAddOn.h"
 
 #include <Alert.h>
@@ -241,7 +241,7 @@ status_t
 CommandSelectWindow::_LoadCommands()
 {
 	BMessage message;
-	if (Preferences::ReadPreferences(message) != B_OK)
+	if (Settings::ReadSettings(message) != B_OK)
 		return B_ERROR;
 
 	BMessage itemMessage;

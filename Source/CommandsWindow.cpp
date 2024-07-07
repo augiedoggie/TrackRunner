@@ -4,7 +4,7 @@
 #include "CommandsWindow.h"
 #include "CommandListItem.h"
 #include "Constants.h"
-#include "Preferences.h"
+#include "Settings.h"
 #include "RunnerAddOn.h"
 #include "SortableListView.h"
 
@@ -354,7 +354,7 @@ status_t
 CommandsWindow::_LoadCommands()
 {
 	BMessage message;
-	if (Preferences::ReadPreferences(message) != B_OK)
+	if (Settings::ReadSettings(message) != B_OK)
 		return B_ERROR;
 
 	BMessage itemMessage;
@@ -378,7 +378,7 @@ status_t
 CommandsWindow::_SaveCommands()
 {
 	BMessage message;
-	if (Preferences::ReadPreferences(message) != B_OK)
+	if (Settings::ReadSettings(message) != B_OK)
 		return B_ERROR;
 
 	// clear out old command entries
@@ -397,7 +397,7 @@ CommandsWindow::_SaveCommands()
 		message.AddMessage(kEntryKey, &itemMessage);
 	}
 
-	return Preferences::WritePreferences(message);
+	return Settings::WriteSettings(message);
 }
 
 

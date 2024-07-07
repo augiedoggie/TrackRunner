@@ -1,9 +1,9 @@
 // SPDX-License-Identifier: MIT
 // SPDX-FileCopyrightText: 2022 Chris Roberts
 
-#include "PreferencesWindow.h"
+#include "SettingsWindow.h"
 #include "Constants.h"
-#include "Preferences.h"
+#include "Settings.h"
 
 #include <Application.h>
 #include <Button.h>
@@ -15,7 +15,7 @@
 #include <Catalog.h>
 
 #undef B_TRANSLATION_CONTEXT
-#define B_TRANSLATION_CONTEXT "PreferencesWindow"
+#define B_TRANSLATION_CONTEXT "SettingsWindow"
 #else
 #define B_TRANSLATE(x) x
 #endif
@@ -30,13 +30,13 @@ enum {
 };
 
 
-PreferencesWindow::PreferencesWindow(BString& title)
+SettingsWindow::SettingsWindow(BString& title)
 	:
 	BWindow(BRect(100, 100, 400, 300), title, B_TITLED_WINDOW,
 		B_ASYNCHRONOUS_CONTROLS | B_AUTO_UPDATE_SIZE_LIMITS | B_CLOSE_ON_ESCAPE)
 {
 	BMessage message;
-	Preferences::ReadPreferences(message);
+	Settings::ReadSettings(message);
 
 	fMenuLabelControl = new BTextControl(B_TRANSLATE("Menu label:"),
 		message.GetString(kMenuLabelKey, kAppTitle), NULL);
@@ -69,7 +69,7 @@ PreferencesWindow::PreferencesWindow(BString& title)
 
 
 bool
-PreferencesWindow::QuitRequested()
+SettingsWindow::QuitRequested()
 {
 	if (be_app->CountWindows() == 1)
 		be_app->PostMessage(B_QUIT_REQUESTED);
@@ -79,7 +79,7 @@ PreferencesWindow::QuitRequested()
 
 
 void
-PreferencesWindow::MessageReceived(BMessage* message)
+SettingsWindow::MessageReceived(BMessage* message)
 {
 	switch (message->what) {
 		case kDefaultsButtonWhat:
@@ -87,15 +87,15 @@ PreferencesWindow::MessageReceived(BMessage* message)
 #ifdef USE_MENUITEM_ICONS
 			fIconMenuCheckBox->SetValue(kIconMenusDefault);
 #endif
-			_WritePreferences();
+			_WriteSettings();
 			break;
 #ifdef USE_MENUITEM_ICONS
 		case kIconCheckBoxWhat:
-			_WritePreferences();
+			_WriteSettings();
 			break;
 #endif
 		case kMenuLabelWhat:
-			_WritePreferences();
+			_WriteSettings();
 			break;
 		default:
 			BWindow::MessageReceived(message);
@@ -104,11 +104,11 @@ PreferencesWindow::MessageReceived(BMessage* message)
 
 
 status_t
-PreferencesWindow::_WritePreferences()
+SettingsWindow::_WriteSettings()
 {
 	BMessage message;
 
-	Preferences::ReadPreferences(message);
+	Settings::ReadSettings(message);
 
 #ifdef USE_MENUITEM_ICONS
 	message.SetBool(kIconMenusKey, fIconMenuCheckBox->Value());
@@ -130,5 +130,5 @@ PreferencesWindow::_WritePreferences()
 	fMenuLabelControl->TextView()->SetFontAndColor(&font, B_FONT_ALL, &textColor);
 	fMenuLabelControl->SetViewColor(viewColor);
 
-	return Preferences::WritePreferences(message);
+	return Settings::WriteSettings(message);
 }

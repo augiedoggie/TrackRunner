@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: MIT
 // SPDX-FileCopyrightText: 2022 Chris Roberts
 
-#ifndef _PREFERENCESWINDOW_H_
-#define _PREFERENCESWINDOW_H_
+#ifndef _SETTINGSWINDOW_H_
+#define _SETTINGSWINDOW_H_
 
 #include <Window.h>
 
@@ -10,16 +10,16 @@ class BCheckBox;
 class BTextControl;
 
 
-class PreferencesWindow : public BWindow {
+class SettingsWindow : public BWindow {
 
 public:
-					PreferencesWindow(BString& title);
+					SettingsWindow(BString& title);
 
 	virtual void	MessageReceived(BMessage* message);
 	virtual bool	QuitRequested();
 
 private:
-		status_t	_WritePreferences();
+		status_t	_WriteSettings();
 
 #ifdef USE_MENUITEM_ICONS
 	BCheckBox*		fIconMenuCheckBox;
@@ -27,4 +27,4 @@ private:
 	BTextControl*	fMenuLabelControl;
 };
 
-#endif // _PREFERENCESWINDOW_H_
+#endif // _SETTINGSWINDOW_H_
