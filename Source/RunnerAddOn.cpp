@@ -15,6 +15,7 @@
 #include <PathFinder.h>
 #include <Roster.h>
 #include <TrackerAddOn.h>
+#include <Url.h>
 #include <private/shared/CommandPipe.h>
 
 #ifdef USE_MENUITEM_ICONS
@@ -145,10 +146,8 @@ RunnerAddOn::OpenUserGuide(bool useAppImage)
 		indexLocation.SetTo(list.First());
 	}
 
-	const char* args[] = {indexLocation.Path(), NULL};
-
-	status_t rc = be_roster->Launch("application/x-vnd.Be.URL.https", 1, args);
-	if (rc != B_OK && rc != B_ALREADY_RUNNING) {
+	status_t rc = BUrl(indexLocation).OpenWithPreferredApplication();
+	if (rc != B_OK) {
 		(new BAlert("Error", B_TRANSLATE("Failed to launch URL"), B_TRANSLATE("OK"),
 			NULL, NULL, B_WIDTH_AS_USUAL, B_STOP_ALERT))->Go();
 		return rc;
@@ -318,15 +317,11 @@ message_received(BMessage* message)
 			RunnerAddOn::OpenUserGuide();
 			break;
 		case kGithubWhat:
-		{
-			const char* args[] = {kGithubUrl, NULL};
-			status_t rc = be_roster->Launch("application/x-vnd.Be.URL.https", 1, args);
-			if (rc != B_OK && rc != B_ALREADY_RUNNING) {
+			if (BUrl(kGithubUrl).OpenWithPreferredApplication() != B_OK) {
 				(new BAlert("Error", B_TRANSLATE("Failed to launch URL"), B_TRANSLATE("OK"),
 					NULL, NULL, B_WIDTH_AS_USUAL, B_STOP_ALERT))->Go();
 			}
 			break;
-		}
 		default:
 			break;
 	}
