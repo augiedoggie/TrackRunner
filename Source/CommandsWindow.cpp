@@ -13,6 +13,7 @@
 #include <Bitmap.h>
 #include <Button.h>
 #include <CheckBox.h>
+#include <ControlLook.h>
 #include <FilePanel.h>
 #include <IconUtils.h>
 #include <LayoutBuilder.h>
@@ -63,12 +64,12 @@ CommandsWindow::CommandsWindow(BString& title)
 	scrollView->SetExplicitMaxSize(BSize(250, B_SIZE_UNSET));
 
 	fToolbar = new BToolBar();
-	fToolbar->AddAction(kNewCommandAction, this, _ResourceBitmap("EntryAdd", 16, 16),
+	fToolbar->AddAction(kNewCommandAction, this, _ResourceBitmap("EntryAdd", be_control_look->ComposeIconSize(16)),
 		B_TRANSLATE("Create a new command entry"), B_TRANSLATE("New"));
-	fToolbar->AddAction(kDeleteCommandAction, this, _ResourceBitmap("EntryDelete", 16, 16),
+	fToolbar->AddAction(kDeleteCommandAction, this, _ResourceBitmap("EntryDelete", be_control_look->ComposeIconSize(16)),
 		B_TRANSLATE("Delete the selected command entry"), B_TRANSLATE("Delete"));
 	fToolbar->AddGlue();
-	fToolbar->AddAction(kUserGuideAction, this, _ResourceBitmap("UserGuide", 16, 16),
+	fToolbar->AddAction(kUserGuideAction, this, _ResourceBitmap("UserGuide", be_control_look->ComposeIconSize(16)),
 		B_TRANSLATE("Open the user guide"), B_TRANSLATE("User Guide"));
 
 	fNameControl = new BTextControl(B_TRANSLATE("Name:"), NULL, NULL);
@@ -421,22 +422,22 @@ CommandsWindow::_InitControls()
 
 
 BBitmap*
-CommandsWindow::_ResourceBitmap(const char* name, float width, float height)
+CommandsWindow::_ResourceBitmap(const char* name, BSize size)
 {
 	BResources* resources = be_app->AppResources();
 	if (resources == NULL)
 		return NULL;
 
-	size_t size;
-	const void* data = resources->LoadResource(B_VECTOR_ICON_TYPE, name, &size);
+	size_t dataSize;
+	const void* data = resources->LoadResource(B_VECTOR_ICON_TYPE, name, &dataSize);
 	if (data == NULL)
 		return NULL;
 
-	BBitmap* bitmap = new BBitmap(BRect(0, 0, width - 1, height - 1), B_RGBA32);
+	BBitmap* bitmap = new BBitmap(BRect(0, 0, size.width, size.height), B_RGBA32);
 	if (bitmap == NULL)
 		return NULL;
 
-	if (BIconUtils::GetVectorIcon((const uint8*)data, size, bitmap) != B_OK) {
+	if (BIconUtils::GetVectorIcon((const uint8*)data, dataSize, bitmap) != B_OK) {
 		delete bitmap;
 		return NULL;
 	}

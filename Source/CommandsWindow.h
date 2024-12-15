@@ -40,7 +40,7 @@ private:
 			void		_RefsReceived(BMessage* message);
 			status_t	_LoadCommands();
 			status_t	_SaveCommands();
-			BBitmap*	_ResourceBitmap(const char* name, float width, float height);
+			BBitmap*	_ResourceBitmap(const char* name, BSize size);
 
 		BButton*		fBrowseButton;
 		BButton*		fShowButton;
