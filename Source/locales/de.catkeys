@@ -1,0 +1,39 @@
+1	German	x-vnd.cpr.TrackRunner	2530446478
+%trackrunner% commands	RunnerApp		%trackrunner% Befehle
+%trackrunner% settings	RunnerApp		%trackrunner% Einstellungen
+OK	RunnerApp		OK
+TrackRunner\nWritten by Chris Roberts	RunnerApp		TrackRunner\nvon Chris Roberts
+Browse…	CommandsWindow		Auswählen…
+Cancel	CommandsWindow		Abbrechen
+Command:	CommandsWindow		Befehl:
+Create a new command entry	CommandsWindow		Neuen Befehl anlegen
+Delete	CommandsWindow		Entfernen
+Delete the selected command entry	CommandsWindow		Ausgewählten Befehl entfernen
+Do you wish to delete '%s'?	CommandsWindow		Soll '%s' gelöscht werden?
+Name:	CommandsWindow		Name:
+New	CommandsWindow		Neu
+Open the user guide	CommandsWindow		Anleitung öffnen
+Show in Tracker	CommandsWindow		In Tracker zeigen
+Use Terminal	CommandsWindow		Im Terminal ausführen
+User Guide	CommandsWindow		Anleitung
+Browse…	CommandSelectWindow		Auswählen…
+Cancel	CommandSelectWindow		Abbrechen
+Command:	CommandSelectWindow		Befehl:
+Error running the command!	CommandSelectWindow		Fehler bem Ausführen des Befehls!
+Folder:	CommandSelectWindow		Ordner:
+OK	CommandSelectWindow		OK
+Run	CommandSelectWindow		Ausführen
+Use Terminal	CommandSelectWindow		Im Terminal ausführen
+Close	SettingsWindow		Schließen
+Defaults	SettingsWindow		Standardwerte
+Menu label:	SettingsWindow		Menütitel:
+Error running command	RunnerAddOn		Fehler bem Ausführen des Befehls
+Failed to launch URL	RunnerAddOn		Konnte URL nicht starten
+Github page	RunnerAddOn		Github Seite
+Manage commands…	RunnerAddOn		Befehle verwalten…
+OK	RunnerAddOn		OK
+Settings & Help	RunnerAddOn		Einstellungen & Hilfe
+Settings…	RunnerAddOn		Einstellungen…
+Unable to launch TrackRunner application	RunnerAddOn		TrackRunner konnte nicht gestartet werden
+Unable to locate UserGuide html files	RunnerAddOn		Die HTML-Dateien der Anleitung wurden nicht gefunden
+User guide	RunnerAddOn		Anleitung

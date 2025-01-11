@@ -208,3 +208,29 @@ Intermediate Scripts
 .. literalinclude:: ../../TestCommands/extract_archive.sh
    :language: bash
    :caption: Extract various archive types using the tar/zip/package commands `[extract_archive.sh @ github] <https://github.com/augiedoggie/TrackRunner/TestCommands/extract_archive.sh>`_
+
+
+Credits & Acknowledgments
+-------------------------
+
+
++-----------------------------------------------------------------------------+
+| **Thank you to the following people for code and application improvements** |
++-----------------------------------------------------------------------------+
+| humdinger                                                                   |
++-----------------------------------------------------------------------------+
+
+
++------------------------------------------------------------------------------+
+| **Thank you to the following people for contributing language translations** |
++------------------------------+-----------------------------------------------+
+| Catalan (ca)                 | Davidmp                                       |
++------------------------------+-----------------------------------------------+
+| French (fr)                  | Briseur                                       |
++------------------------------+-----------------------------------------------+
+| German (de)                  | humdinger                                     |
++------------------------------+-----------------------------------------------+
+| Spanish (es)                 | cafeina                                       |
++------------------------------+-----------------------------------------------+
+| Turkish (tr)                 | Emir Sarı                                     |
++------------------------------+-----------------------------------------------+

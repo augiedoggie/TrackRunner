@@ -1,0 +1,39 @@
+1	Turkish	x-vnd.cpr.TrackRunner	2530446478
+%trackrunner% commands	RunnerApp		%trackrunner% komutları
+%trackrunner% settings	RunnerApp		%trackrunner% ayarları
+OK	RunnerApp		Tamam
+TrackRunner\nWritten by Chris Roberts	RunnerApp		TrackRunner\nChris Roberts tarafından yazıldı
+Browse…	CommandsWindow		Göz at…
+Cancel	CommandsWindow		Vazgeç
+Command:	CommandsWindow		Komut:
+Create a new command entry	CommandsWindow		Yeni bir komut girişi oluştur
+Delete	CommandsWindow		Sil
+Delete the selected command entry	CommandsWindow		Seçili komut girişini sil
+Do you wish to delete '%s'?	CommandsWindow		“%s” ögesini silmek istiyor musunuz?
+Name:	CommandsWindow		Ad:
+New	CommandsWindow		Yeni
+Open the user guide	CommandsWindow		Kullanıcı kılavuzunu aç
+Show in Tracker	CommandsWindow		İzleyici’de göster
+Use Terminal	CommandsWindow		Uçbirimi kullan
+User Guide	CommandsWindow		Kullanıcı kılavuzu
+Browse…	CommandSelectWindow		Göz at…
+Cancel	CommandSelectWindow		Vazgeç
+Command:	CommandSelectWindow		Komut:
+Error running the command!	CommandSelectWindow		Komutu çalıştırırken hata!
+Folder:	CommandSelectWindow		Klasör:
+OK	CommandSelectWindow		Tamam
+Run	CommandSelectWindow		Çalıştır
+Use Terminal	CommandSelectWindow		Uçbirimi kullan
+Close	SettingsWindow		Kapat
+Defaults	SettingsWindow		Saptanmışlar
+Menu label:	SettingsWindow		Menü etiketi:
+Error running command	RunnerAddOn		Komutu çalıştırırken hata
+Failed to launch URL	RunnerAddOn		URL başlatılamadı
+Github page	RunnerAddOn		Github sayfası
+Manage commands…	RunnerAddOn		Komutları yönet…
+OK	RunnerAddOn		Tamam
+Settings & Help	RunnerAddOn		Ayarlar ve yardım
+Settings…	RunnerAddOn		Ayarlar…
+Unable to launch TrackRunner application	RunnerAddOn		TrackRunner uygulaması başlatılamıyor
+Unable to locate UserGuide html files	RunnerAddOn		Kullanıcı kılavuzu HTML dosyaları bulunamıyor
+User guide	RunnerAddOn		Kullanıcı kılavuzu

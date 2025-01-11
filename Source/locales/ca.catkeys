@@ -1,0 +1,39 @@
+1	Catalan	x-vnd.cpr.TrackRunner	2530446478
+%trackrunner% commands	RunnerApp		Ordres del %trackrunner%
+%trackrunner% settings	RunnerApp		Paràmetres del %trackrunner%
+OK	RunnerApp		D'acord
+TrackRunner\nWritten by Chris Roberts	RunnerApp		TrackRunner\nEscrit per Chris Roberts
+Browse…	CommandsWindow		Navega...
+Cancel	CommandsWindow		Cancel·la
+Command:	CommandsWindow		Ordre:
+Create a new command entry	CommandsWindow		Crea una entrada d'ordre nova
+Delete	CommandsWindow		Suprimeix
+Delete the selected command entry	CommandsWindow		Suprimeix l'entrada d'ordre seleccionada
+Do you wish to delete '%s'?	CommandsWindow		Voleu suprimir %s?
+Name:	CommandsWindow		Nom:
+New	CommandsWindow		Nova
+Open the user guide	CommandsWindow		Obre la guia de l'usuari
+Show in Tracker	CommandsWindow		Mostra-ho al Rastrejador
+Use Terminal	CommandsWindow		Usa el Terminal
+User Guide	CommandsWindow		Guia de l'usuari
+Browse…	CommandSelectWindow		Navega...
+Cancel	CommandSelectWindow		Cancel·la
+Command:	CommandSelectWindow		Ordre:
+Error running the command!	CommandSelectWindow		Error en executar l'ordre!
+Folder:	CommandSelectWindow		Carpeta:
+OK	CommandSelectWindow		D'acord
+Run	CommandSelectWindow		Executa
+Use Terminal	CommandSelectWindow		Usa el Terminal
+Close	SettingsWindow		Tanca
+Defaults	SettingsWindow		Valors per defecte
+Menu label:	SettingsWindow		Etiqueta del menú:
+Error running command	RunnerAddOn		Error en executar l'ordre
+Failed to launch URL	RunnerAddOn		No s'ha pogut iniciar l'URL.
+Github page	RunnerAddOn		Pàgina de Github
+Manage commands…	RunnerAddOn		Gestioneu les ordres...
+OK	RunnerAddOn		D'acord
+Settings & Help	RunnerAddOn		Paràmetres i ajuda
+Settings…	RunnerAddOn		Paràmetres...
+Unable to launch TrackRunner application	RunnerAddOn		No es pot iniciar l'aplicació TrackRunner.
+Unable to locate UserGuide html files	RunnerAddOn		No s'han pogut trobar els fitxers html de la guia de l'usuari.
+User guide	RunnerAddOn		Guia de l'usuari
