@@ -1,0 +1,39 @@
+1	Spanish (Latin American)	x-vnd.cpr.TrackRunner	2530446478
+%trackrunner% commands	RunnerApp		Comandos %trackrunner%
+%trackrunner% settings	RunnerApp		Ajustes %trackrunner%
+OK	RunnerApp		Aceptar
+TrackRunner\nWritten by Chris Roberts	RunnerApp		TrackRunner\nEscrito por Chris Roberts
+Browse…	CommandsWindow		Ejecutar 
+Cancel	CommandsWindow		Cancelar
+Command:	CommandsWindow		Comando:
+Create a new command entry	CommandsWindow		Crear una entrada de comando nueva
+Delete	CommandsWindow		Eliminar
+Delete the selected command entry	CommandsWindow		Borrar la entrada de comando seleccionada
+Do you wish to delete '%s'?	CommandsWindow		¿Desea eliminar '%s'?
+Name:	CommandsWindow		Nombre:
+New	CommandsWindow		Nuevo
+Open the user guide	CommandsWindow		Abrir la guía del usuario 
+Show in Tracker	CommandsWindow		Mostrar en Tracker
+Use Terminal	CommandsWindow		Usar el terminal 
+User Guide	CommandsWindow		Guía del usuario 
+Browse…	CommandSelectWindow		Explorar 
+Cancel	CommandSelectWindow		Cancelar
+Command:	CommandSelectWindow		Comando:
+Error running the command!	CommandSelectWindow		¡Error al ejecutar el comando!
+Folder:	CommandSelectWindow		Carpeta:
+OK	CommandSelectWindow		Aceptar
+Run	CommandSelectWindow		Ejecutar
+Use Terminal	CommandSelectWindow		Usar el Terminal 
+Close	SettingsWindow		Cerrar
+Defaults	SettingsWindow		Predeterminados 
+Menu label:	SettingsWindow		Etiqueta de Menú:
+Error running command	RunnerAddOn		Error al ejecutar el comando 
+Failed to launch URL	RunnerAddOn		Error al abrir la dirección URL
+Github page	RunnerAddOn		Página de Github
+Manage commands…	RunnerAddOn		Administrar los comandos...
+OK	RunnerAddOn		Aceptar
+Settings & Help	RunnerAddOn		Ajustes y ayuda 
+Settings…	RunnerAddOn		Ajustes…
+Unable to launch TrackRunner application	RunnerAddOn		No es posible iniciar la aplicación Trackrunner
+Unable to locate UserGuide html files	RunnerAddOn		No es posible localizar los archivos HTML de la Guía del Usuario 
+User guide	RunnerAddOn		Guía del usuario 

@@ -1,0 +1,39 @@
+1	Czech	x-vnd.cpr.TrackRunner	2530446478
+%trackrunner% commands	RunnerApp		%trackrunner% příkazy
+%trackrunner% settings	RunnerApp		nastavení %trackrunner%
+OK	RunnerApp		OK
+TrackRunner\nWritten by Chris Roberts	RunnerApp		TrackRunner\nWritten by Chris Roberts
+Browse…	CommandsWindow		Procházet…
+Cancel	CommandsWindow		Zrušit
+Command:	CommandsWindow		Příkaz:
+Create a new command entry	CommandsWindow		Vytvořte nový příkaz
+Delete	CommandsWindow		Vymazat
+Delete the selected command entry	CommandsWindow		Smažte vybraný příkaz
+Do you wish to delete '%s'?	CommandsWindow		Přejete si smazat '%s'?
+Name:	CommandsWindow		Jméno:
+New	CommandsWindow		Nový
+Open the user guide	CommandsWindow		Otevřít uživatelskou příručku
+Show in Tracker	CommandsWindow		Ukázat v Trackeru
+Use Terminal	CommandsWindow		Použít Terminál
+User Guide	CommandsWindow		Uživatelská příručka
+Browse…	CommandSelectWindow		Prohlížet…
+Cancel	CommandSelectWindow		Zrušit
+Command:	CommandSelectWindow		Příkaz:
+Error running the command!	CommandSelectWindow		Chyba při spuštění příkazu!
+Folder:	CommandSelectWindow		Složka:
+OK	CommandSelectWindow		OK
+Run	CommandSelectWindow		Běh
+Use Terminal	CommandSelectWindow		Použít Terminál
+Close	SettingsWindow		Zavřít
+Defaults	SettingsWindow		Výchozí
+Menu label:	SettingsWindow		Štítek menu:
+Error running command	RunnerAddOn		Chyba při spuštění příkazu
+Failed to launch URL	RunnerAddOn		Spuštění URL se nezdařilo
+Github page	RunnerAddOn		Stránka Github
+Manage commands…	RunnerAddOn		Spravovat příkazy…
+OK	RunnerAddOn		OK
+Settings & Help	RunnerAddOn		Nastavení a nápověda
+Settings…	RunnerAddOn		Nastavení…
+Unable to launch TrackRunner application	RunnerAddOn		Aplikaci TrackRunner nelze spustit
+Unable to locate UserGuide html files	RunnerAddOn		Nelze najít html soubory UserGuide
+User guide	RunnerAddOn		Uživatelská příručka

@@ -24,7 +24,7 @@ target_link_libraries(${PROJECT_NAME} be shared tracker)
 
 if(HAIKU_ENABLE_I18N)
 	set("${PROJECT_NAME}-APP_MIME_SIG" x-vnd.cpr.TrackRunner)
-	set("${PROJECT_NAME}-LOCALES" en ca de es fr tr)
+	set("${PROJECT_NAME}-LOCALES" ca cs de en es_419 es fr fur ru sv tr)
 	target_link_libraries(${PROJECT_NAME} localestub)
 	haiku_add_i18n(${PROJECT_NAME})
 endif()

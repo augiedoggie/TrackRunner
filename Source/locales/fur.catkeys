@@ -1,0 +1,39 @@
+1	Friulian	x-vnd.cpr.TrackRunner	2530446478
+%trackrunner% commands	RunnerApp		Comants di %trackrunner%
+%trackrunner% settings	RunnerApp		Impostazions di %trackrunner%
+OK	RunnerApp		Va ben
+TrackRunner\nWritten by Chris Roberts	RunnerApp		TrackRunner\nScrit di Chris Roberts
+Browse…	CommandsWindow		Esplore…
+Cancel	CommandsWindow		Anule
+Command:	CommandsWindow		Comant:
+Create a new command entry	CommandsWindow		Cree une gnove vôs di comant
+Delete	CommandsWindow		Elimine
+Delete the selected command entry	CommandsWindow		Elimine la vôs di comant selezionade
+Do you wish to delete '%s'?	CommandsWindow		Desideristu eliminâ '%s'?
+Name:	CommandsWindow		Non:
+New	CommandsWindow		Gnûf
+Open the user guide	CommandsWindow		Vierç la vuide utent
+Show in Tracker	CommandsWindow		Mostre tal Tracker
+Use Terminal	CommandsWindow		Dopre il Terminâl
+User Guide	CommandsWindow		Vuide utent
+Browse…	CommandSelectWindow		Esplore…
+Cancel	CommandSelectWindow		Anule
+Command:	CommandSelectWindow		Comant:
+Error running the command!	CommandSelectWindow		Erôr tal eseguî il comant!
+Folder:	CommandSelectWindow		Cartele:
+OK	CommandSelectWindow		Va ben
+Run	CommandSelectWindow		Eseguìs
+Use Terminal	CommandSelectWindow		Dopre il terminâl
+Close	SettingsWindow		Siere
+Defaults	SettingsWindow		Predefinîts
+Menu label:	SettingsWindow		Etichete dal menù:
+Error running command	RunnerAddOn		Erôr tal eseguî il comant
+Failed to launch URL	RunnerAddOn		Impussibil inviâ l'URL
+Github page	RunnerAddOn		Pagjine di Github
+Manage commands…	RunnerAddOn		Gjestìs comants…
+OK	RunnerAddOn		Va ben
+Settings & Help	RunnerAddOn		Impostazions & Jutori
+Settings…	RunnerAddOn		Impostazions…
+Unable to launch TrackRunner application	RunnerAddOn		Impussibil inviâ la aplicazion TrackRunner
+Unable to locate UserGuide html files	RunnerAddOn		Impussibil cjatâ i files html de VuideUtent
+User guide	RunnerAddOn		Vuide utent
