@@ -1,0 +1,39 @@
+1	Norwegian	x-vnd.cpr.TrackRunner	2530446478
+%trackrunner% commands	RunnerApp		%trackrunner% kommandoer
+%trackrunner% settings	RunnerApp		%trackrunner% innstillinger
+OK	RunnerApp		OK
+TrackRunner\nWritten by Chris Roberts	RunnerApp		TrackRunner\nSkrevet av Chris Roberts
+Browse…	CommandsWindow		Finn…
+Cancel	CommandsWindow		Avbryt
+Command:	CommandsWindow		Kommando:
+Create a new command entry	CommandsWindow		Opprett en ny kommando
+Delete	CommandsWindow		Slett
+Delete the selected command entry	CommandsWindow		Slett den valgte kommandoen
+Do you wish to delete '%s'?	CommandsWindow		Ønsker du å slette '%s'?
+Name:	CommandsWindow		Navn:
+New	CommandsWindow		Ny
+Open the user guide	CommandsWindow		Åpne brukerveiledningen
+Show in Tracker	CommandsWindow		Vis i Tracker
+Use Terminal	CommandsWindow		Bruk Terminal
+User Guide	CommandsWindow		Brukerveiledning
+Browse…	CommandSelectWindow		Finn…
+Cancel	CommandSelectWindow		Avbryt
+Command:	CommandSelectWindow		Kommando:
+Error running the command!	CommandSelectWindow		Feil ved kjøring av kommando!
+Folder:	CommandSelectWindow		Mappe:
+OK	CommandSelectWindow		OK
+Run	CommandSelectWindow		Kjør
+Use Terminal	CommandSelectWindow		Bruk Terminal
+Close	SettingsWindow		Lukk
+Defaults	SettingsWindow		Standardinnstillinger
+Menu label:	SettingsWindow		Menyetikett:
+Error running command	RunnerAddOn		Feil ved kjøring av kommando
+Failed to launch URL	RunnerAddOn		Kunne ikke åpne URL
+Github page	RunnerAddOn		Github-side
+Manage commands…	RunnerAddOn		Behandle kommandoer…
+OK	RunnerAddOn		OK
+Settings & Help	RunnerAddOn		Innstillinger & Hjelp
+Settings…	RunnerAddOn		Innstillinger…
+Unable to launch TrackRunner application	RunnerAddOn		Kunne ikke starte TrackRunner-programmet
+Unable to locate UserGuide html files	RunnerAddOn		Kunne ikke finne brukerveiledningens HTML-filer
+User guide	RunnerAddOn		Brukerveiledning
