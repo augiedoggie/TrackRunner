@@ -16,7 +16,7 @@ class BTextControl;
 
 class CommandSelectWindow : public BWindow {
 public:
-					CommandSelectWindow(BMessage* message);
+					CommandSelectWindow(BMessage* message, float interfaceScale);
 					~CommandSelectWindow();
 
 	virtual void	MessageReceived(BMessage* message);

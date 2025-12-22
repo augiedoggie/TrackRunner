@@ -21,6 +21,7 @@ private:
 		void		_ShowSettingsWindow();
 
 	bool		fInitialWindowShown;
+	float		fInterfaceScale;
 };
 
 #endif // _RUNNERAPP_H_

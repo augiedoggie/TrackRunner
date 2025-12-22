@@ -62,15 +62,15 @@ public:
 };
 
 
-CommandSelectWindow::CommandSelectWindow(BMessage* message)
+CommandSelectWindow::CommandSelectWindow(BMessage* message, float interfaceScale)
 	:
-	BWindow(BRect(100, 100, 650, 450), "Run command" B_UTF8_ELLIPSIS, B_FLOATING_WINDOW_LOOK, B_NORMAL_WINDOW_FEEL, B_NOT_ZOOMABLE | B_NOT_MINIMIZABLE | B_AUTO_UPDATE_SIZE_LIMITS | B_CLOSE_ON_ESCAPE),
+	BWindow(BRect(100, 100, 100 + (550 * interfaceScale), 100 + (350 * interfaceScale)), "Run command" B_UTF8_ELLIPSIS, B_TITLED_WINDOW, B_NOT_ZOOMABLE | B_NOT_MINIMIZABLE | B_AUTO_UPDATE_SIZE_LIMITS | B_CLOSE_ON_ESCAPE),
 	fCommandFilePanel(NULL),
 	fDirectoryFilePanel(NULL),
 	fRefsMessage(new BMessage(*message))
 {
 	fCommandListView = new BListView("CommandList");
-	fCommandListView->SetExplicitMinSize(BSize(300, 100));
+	fCommandListView->SetExplicitMinSize(BSize(300 * interfaceScale, 100 * interfaceScale));
 	fCommandListView->SetSelectionMessage(new BMessage(kListSelectAction));
 
 	BScrollView* scrollView = new BScrollView("CommandScrollView", fCommandListView, B_INVALIDATE_AFTER_LAYOUT, false, true);
@@ -102,7 +102,7 @@ CommandSelectWindow::CommandSelectWindow(BMessage* message)
 	BLayoutBuilder::Group<>(this, B_VERTICAL, 0)
 		.SetInsets(B_USE_WINDOW_INSETS)
 		.Add(scrollView)
-		.AddStrut(10.0)
+		.AddStrut(10.0 * interfaceScale)
 		.AddGrid(B_USE_HALF_ITEM_SPACING, B_USE_HALF_ITEM_SPACING)
 			.AddTextControl(fCommandTextControl, 0, 0, B_ALIGN_RIGHT)
 			.Add(new BButton(B_TRANSLATE("Browse" B_UTF8_ELLIPSIS), new BMessage(kBrowseCommandAction)), 2, 0)

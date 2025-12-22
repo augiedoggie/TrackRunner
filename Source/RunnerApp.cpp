@@ -9,6 +9,7 @@
 
 #include <Alert.h>
 #include <Application.h>
+#include <ControlLook.h>
 
 
 #ifdef HAIKU_ENABLE_I18N
@@ -24,7 +25,8 @@
 RunnerApp::RunnerApp()
 	:
 	BApplication(kAppSignature),
-	fInitialWindowShown(false)
+	fInitialWindowShown(false),
+	fInterfaceScale(be_control_look->ComposeIconSize(100).Width() / 100.0)
 {
 }
 
@@ -85,7 +87,7 @@ RunnerApp::ReadyToRun()
 void
 RunnerApp::RefsReceived(BMessage* message)
 {
-	CommandSelectWindow* window = new CommandSelectWindow(message);
+	CommandSelectWindow* window = new CommandSelectWindow(message, fInterfaceScale);
 	window->Lock();
 	window->CenterOnScreen();
 	window->Show();
@@ -107,7 +109,7 @@ RunnerApp::_ShowSettingsWindow()
 {
 	BString title(B_TRANSLATE("%trackrunner% settings"));
 	title.ReplaceFirst("%trackrunner%", kAppTitle);
-	SettingsWindow* window = new SettingsWindow(title);
+	SettingsWindow* window = new SettingsWindow(title, fInterfaceScale);
 	window->Lock();
 	window->CenterOnScreen();
 	window->Show();
@@ -120,7 +122,7 @@ RunnerApp::_ShowManageWindow()
 {
 	BString title(B_TRANSLATE("%trackrunner% commands"));
 	title.ReplaceFirst("%trackrunner%", kAppTitle);
-	CommandsWindow* window = new CommandsWindow(title);
+	CommandsWindow* window = new CommandsWindow(title, fInterfaceScale);
 	window->Lock();
 	window->CenterOnScreen();
 	window->Show();

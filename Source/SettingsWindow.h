@@ -13,7 +13,7 @@ class BTextControl;
 class SettingsWindow : public BWindow {
 
 public:
-					SettingsWindow(BString& title);
+					SettingsWindow(BString& title, float interfaceScale);
 
 	virtual void	MessageReceived(BMessage* message);
 	virtual bool	QuitRequested();

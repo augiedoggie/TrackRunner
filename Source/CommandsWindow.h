@@ -22,7 +22,7 @@ class BToolBar;
 class CommandsWindow : public BWindow {
 
 public:
-						CommandsWindow(BString& title);
+						CommandsWindow(BString& title, float interfaceScale);
 	virtual void		MessageReceived(BMessage* message);
 	virtual bool		QuitRequested();
 

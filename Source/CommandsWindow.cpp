@@ -50,9 +50,9 @@ enum {
 };
 
 
-CommandsWindow::CommandsWindow(BString& title)
+CommandsWindow::CommandsWindow(BString& title, float interfaceScale)
 	:
-	BWindow(BRect(100, 100, 700, 450), title, B_TITLED_WINDOW,
+	BWindow(BRect(100, 100, 100 + (600 * interfaceScale), 100 + (350 * interfaceScale)), title, B_TITLED_WINDOW,
 		B_ASYNCHRONOUS_CONTROLS | B_AUTO_UPDATE_SIZE_LIMITS | B_CLOSE_ON_ESCAPE),
 	fBrowsePanel(NULL)
 {
@@ -60,8 +60,8 @@ CommandsWindow::CommandsWindow(BString& title)
 	fListView->SetSelectionMessage(new BMessage(kListSelectAction));
 
 	BScrollView* scrollView = new BScrollView("CommandScrollView", fListView, B_INVALIDATE_AFTER_LAYOUT, false, true);
-	scrollView->SetExplicitMinSize(BSize(150, 300));
-	scrollView->SetExplicitMaxSize(BSize(250, B_SIZE_UNSET));
+	scrollView->SetExplicitMinSize(BSize(150 * interfaceScale, 300 * interfaceScale));
+	scrollView->SetExplicitMaxSize(BSize(250 * interfaceScale, B_SIZE_UNSET));
 
 	fToolbar = new BToolBar();
 	fToolbar->AddAction(kNewCommandAction, this, _ResourceBitmap("EntryAdd", be_control_look->ComposeIconSize(B_MINI_ICON)),
