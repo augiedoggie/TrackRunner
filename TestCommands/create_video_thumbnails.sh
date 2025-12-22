@@ -6,12 +6,12 @@ if (($# == 0)); then
 fi
 
 if ! type -p ffmpegthumbnailer >/dev/null;then
-	alert --stop "'ffmpegthumbnailer' command not found.  Pleast install the ffmpegthumbnailer package."
+	alert --stop "'ffmpegthumbnailer' command not found.  Please install the ffmpegthumbnailer package."
 	exit
 fi
 
 if ! type -p gm >/dev/null;then
-	alert --stop "'gm' command not found.  Pleast install the GraphicsMagick package."
+	alert --stop "'gm' command not found.  Please install the GraphicsMagick package."
 	exit
 fi
 

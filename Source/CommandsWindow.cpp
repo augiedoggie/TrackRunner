@@ -64,12 +64,12 @@ CommandsWindow::CommandsWindow(BString& title)
 	scrollView->SetExplicitMaxSize(BSize(250, B_SIZE_UNSET));
 
 	fToolbar = new BToolBar();
-	fToolbar->AddAction(kNewCommandAction, this, _ResourceBitmap("EntryAdd", be_control_look->ComposeIconSize(16)),
+	fToolbar->AddAction(kNewCommandAction, this, _ResourceBitmap("EntryAdd", be_control_look->ComposeIconSize(B_MINI_ICON)),
 		B_TRANSLATE("Create a new command entry"), B_TRANSLATE("New"));
-	fToolbar->AddAction(kDeleteCommandAction, this, _ResourceBitmap("EntryDelete", be_control_look->ComposeIconSize(16)),
+	fToolbar->AddAction(kDeleteCommandAction, this, _ResourceBitmap("EntryDelete", be_control_look->ComposeIconSize(B_MINI_ICON)),
 		B_TRANSLATE("Delete the selected command entry"), B_TRANSLATE("Delete"));
 	fToolbar->AddGlue();
-	fToolbar->AddAction(kUserGuideAction, this, _ResourceBitmap("UserGuide", be_control_look->ComposeIconSize(16)),
+	fToolbar->AddAction(kUserGuideAction, this, _ResourceBitmap("UserGuide", be_control_look->ComposeIconSize(B_MINI_ICON)),
 		B_TRANSLATE("Open the user guide"), B_TRANSLATE("User Guide"));
 
 	fNameControl = new BTextControl(B_TRANSLATE("Name:"), NULL, NULL);
@@ -202,39 +202,40 @@ CommandsWindow::_ShowCommand()
 {
 	BEntry itemEntry(_Deescape(fCommandControl->Text()));
 	status_t status = itemEntry.InitCheck();
-	if (status == B_OK) {
-		BEntry parentDirectory;
-		status = itemEntry.GetParent(&parentDirectory);
-		if (status == B_OK) {
-			entry_ref ref;
-			status = parentDirectory.GetRef(&ref);
-			if (status == B_OK) {
-				node_ref nref;
-				status = itemEntry.GetNodeRef(&nref);
-				if (status == B_OK)
-					_ShowInTracker(ref, &nref);
-			}
-		}
-	}
+	if (status != B_OK)
+		return;
+
+	BEntry parentDirectory;
+	status = itemEntry.GetParent(&parentDirectory);
+	if (status != B_OK)
+		return;
+
+	entry_ref ref;
+	status = parentDirectory.GetRef(&ref);
+	if (status != B_OK)
+		return;
+
+	node_ref nref;
+	status = itemEntry.GetNodeRef(&nref);
+	if (status == B_OK)
+		_ShowInTracker(ref, &nref);
 }
 
 
 status_t
 CommandsWindow::_ShowInTracker(const entry_ref& ref, const node_ref* nref)
 {
-	status_t status = B_ERROR;
-
 	BMessenger tracker("application/x-vnd.Be-TRAK");
-	if (tracker.IsValid()) {
-		BMessage message(B_REFS_RECEIVED);
-		message.AddRef("refs", &ref);
+	if (!tracker.IsValid())
+		return B_ERROR;
 
-		if (nref != NULL)
-			message.AddData("nodeRefToSelect", B_RAW_TYPE, (void*)nref, sizeof(node_ref));
+	BMessage message(B_REFS_RECEIVED);
+	message.AddRef("refs", &ref);
 
-		status = tracker.SendMessage(&message);
-	}
-	return status;
+	if (nref != NULL)
+		message.AddData("nodeRefToSelect", B_RAW_TYPE, (void*)nref, sizeof(node_ref));
+
+	return tracker.SendMessage(&message);
 }
 
 
