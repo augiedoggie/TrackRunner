@@ -14,6 +14,7 @@ set(${PROJECT_NAME}_sources
 	)
 
 include_directories(AFTER SYSTEM
+	/boot/system/develop/headers/private
 	/boot/system/develop/headers/private/shared
 	/boot/system/develop/headers/private/tracker
 	${CMAKE_CURRENT_SOURCE_DIR}/tracker)
