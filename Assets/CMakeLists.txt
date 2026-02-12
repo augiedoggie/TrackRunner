@@ -13,6 +13,8 @@ add_custom_target("UserGuide" ALL DEPENDS ${PROJECT_BINARY_DIR}/UserGuide/index.
 
 add_custom_command(TARGET "UserGuide" POST_BUILD
 	COMMAND settype -t text/css ${PROJECT_BINARY_DIR}/UserGuide/_static/*.css
+	COMMAND settype -t text/x-source-code ${PROJECT_BINARY_DIR}/UserGuide/_static/*.js
+	COMMAND settype -t text/x-source-code ${PROJECT_BINARY_DIR}/UserGuide/*.js
 	COMMAND settype -t text/html ${PROJECT_BINARY_DIR}/UserGuide/*.html
 	COMMAND mimeset ${PROJECT_BINARY_DIR}/UserGuide/**
 	)
